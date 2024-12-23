@@ -15,12 +15,28 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <stdlib.h>
 
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
+typedef struct stored_s
+{
+	char	*content;
+	size_t	last_pos;
+}	t_stored;
+
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 4096
+# endif
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX 1024
+# endif
 
 int		ft_atoi(const char *str);
 void	ft_putendl_fd(char const *s, int fd);
@@ -65,4 +81,11 @@ int		ft_tolower(int c);
 int		ft_toupper(int c);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strrchr(const char *str, int c);
+char	*extract_line(t_stored *stored);
+char	*ft_linechr(t_stored *stored, int c);
+char	*free_stored(char **content);
+size_t	read_to_buffer(t_stored *stored, int fd);
+void	ft_strmerge(char **dest, char *src);
+char	*get_next_line(int fd);
+
 #endif

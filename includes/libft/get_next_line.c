@@ -10,9 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-char	*ft_strchr(t_stored *stored, int c)
+char	*free_stored(char **content)
+{
+	free(*content);
+	*content = NULL;
+	return (NULL);
+}
+
+char	*ft_linechr(t_stored *stored, int c)
 {
 	size_t	i;
 
@@ -32,32 +39,6 @@ char	*ft_strchr(t_stored *stored, int c)
 	if ((char)c == '\0')
 		return (&stored->content[i]);
 	return (NULL);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*sub;
-	size_t	i;
-	size_t	s_len;
-
-	if (!s)
-		return (NULL);
-	s_len = ft_strlen(s);
-	if (start >= s_len)
-		return (ft_strdup(""));
-	if (len > s_len - start)
-		len = s_len - start;
-	sub = malloc((len + 1) * sizeof(char));
-	if (!sub)
-		return (NULL);
-	i = 0;
-	while (i < len && s[start + i])
-	{
-		sub[i] = s[start + i];
-		i++;
-	}
-	sub[i] = '\0';
-	return (sub);
 }
 
 char	*extract_line(t_stored *stored)
@@ -121,7 +102,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	stored.last_pos = 0;
-	while (!stored.content || !ft_strchr(&stored, '\n'))
+	while (!stored.content || !ft_linechr(&stored, '\n'))
 	{
 		bytes_read = read_to_buffer(&stored, fd);
 		if (bytes_read < 0)
