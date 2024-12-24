@@ -75,5 +75,6 @@ int read_map(char *map_path, t_game *game)
         free(tmp);
     }
     close(fd);
+    game->map.width = ft_strlen(game->map.map[0]);
     return (game->map.hight > 0 ? 0 : -1);
 }

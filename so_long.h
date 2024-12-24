@@ -15,9 +15,17 @@ typedef struct s_map
     int width;
 } t_map;
 
+typedef struct s_player
+{
+    void *player_image;
+    int player_pos_x;
+    int player_pos_y;
+}t_player;
+
 typedef struct s_game
 {
     t_map map;
+    t_player player;
     void *mlx;
     void *mlx_win;
 }t_game;
