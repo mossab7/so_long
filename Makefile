@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-MSRCS = so_long.c
+MSRCS = so_long.c map.c game_initializer.c
 LIBFT = libft.a
 LIBFT_DIR = includes/libft
 SO_LONG = so_long
@@ -11,7 +11,7 @@ $(LIBFT):
 	make -C $(LIBFT_DIR)
 
 $(SO_LONG) : $(MSRCS)
-	$(CC)  $(MSRCS) -o $(SO_LONG) -L$(LIBFT_DIR) -lft
+	$(CC)  $(MSRCS) -o $(SO_LONG) -L$(LIBFT_DIR) -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 clean:
 	make -C $(LIBFT_DIR) clean
