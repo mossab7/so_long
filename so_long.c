@@ -21,11 +21,11 @@ int main(int ac, char **av)
     if(start_game(&game) == -1)
     {
         ft_putendl_fd("Error: Failed to launch the game",2);
-        free_map_resources(game.map.map, game.map.hight);
+        free_map_resources(game.map.map, game.map.height);
         return (1);
     }
 
-    for (int i = 0; i < game.map.hight; i++)
+    for (int i = 0; i < game.map.height; i++)
         ft_putstr_fd(game.map.map[i], 1);
 
     return (0);

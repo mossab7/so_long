@@ -52,7 +52,7 @@ int read_map(char *map_path, t_game *game)
         return (-1);
     
     game->map.map = NULL;
-    game->map.hight = 0;
+    game->map.height = 0;
 
     if ((fd = open(map_path, O_RDONLY)) == -1)
     {
@@ -65,8 +65,8 @@ int read_map(char *map_path, t_game *game)
         tmp = get_next_line(fd);
         if (!tmp)
             break;
-        game->map.hight++;
-        if (ft_realloc(&game->map.map, tmp, game->map.hight) == -1)
+        game->map.height++;
+        if (ft_realloc(&game->map.map, tmp, game->map.height) == -1)
         {
             free(tmp);
             close(fd);
@@ -76,5 +76,5 @@ int read_map(char *map_path, t_game *game)
     }
     close(fd);
     game->map.width = ft_strlen(game->map.map[0]);
-    return (game->map.hight > 0 ? 0 : -1);
+    return (game->map.height > 0 ? 0 : -1);
 }

@@ -7,11 +7,12 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
+#define SCALE 64
 
 typedef struct s_map
 {
     char **map;
-    int hight;
+    int height;
     int width;
 } t_map;
 
@@ -22,12 +23,37 @@ typedef struct s_player
     int player_pos_y;
 }t_player;
 
+typedef struct s_vars
+{
+    void *image;
+    void *image_addr;
+    int bpp;
+    int line_size;
+    int endian;
+    int height;
+    int width;
+    int x_pos;
+    int y_pos;
+}t_vars;
+
 typedef struct s_game
 {
     t_map map;
-    t_player player;
     void *mlx;
-    void *mlx_win;
+    void *win;
+    void *image;
+    void *image_addr;
+    int bpp;
+    int line_size;
+    int endian;
+    int height;
+    int width;
+    int x_pos;
+    int y_pos;
+    t_vars player;
+    t_vars enemy;
+    t_vars obstacl;
+    t_vars floor;
 }t_game;
 
 void free_map_resources(char **map, int size);
