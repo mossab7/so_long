@@ -16,6 +16,15 @@ typedef struct s_map
     int width;
 } t_map;
 
+typedef enum e_key
+{
+    ESC = 65307,
+    UPPER_KEY = 65362,  
+    LEFT_KEY = 65361,
+    DOWN_KEY = 65364,
+    RIGHT_KEY = 65363
+} t_key;               
+
 typedef struct s_player
 {
     void *player_image;
@@ -34,6 +43,8 @@ typedef struct s_vars
     int width;
     int x_pos;
     int y_pos;
+    int x_start_pos;
+    int y_start_pos;
 }t_vars;
 
 typedef struct s_game
@@ -48,8 +59,6 @@ typedef struct s_game
     int endian;
     int height;
     int width;
-    int x_pos;
-    int y_pos;
     t_vars player;
     t_vars enemy;
     t_vars obstacl;

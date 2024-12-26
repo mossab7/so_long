@@ -1,1 +1,1 @@
-make && ./so_long map.ber
+make re && ./so_long map.ber

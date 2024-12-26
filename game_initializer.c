@@ -1,39 +1,67 @@
 #include "so_long.h"
 
-//TO DO : implement a key hook
-//keep in mind you don't have to keep floor location you can just skip by the scale and do the inamation, for the wall it's the same thing
-//check the inamation downloaded
-//keep track of inamation by a static variable?
-//add map check
-//spritese:https://github.com/madebypixel02/so_long/tree/main/sprites
-//push you have one week
+//TO DO: fix starting position of the player
+//fix player touching the wall add animation 
 
-
-int put_next_frame(t_game *to_draw)
+int draw_next_frame(t_game *game)
 {
-    mlx_put_image_to_window(to_draw->mlx, to_draw->win, to_draw->image, 0, 0);
+    game->floor.x_pos = game->player.x_start_pos;
+    game->floor.y_pos = game->player.y_start_pos;
+    draw_to_image(game,game->floor);
+    draw_to_image(game,game->player);
+    game->player.x_start_pos = game->player.x_pos;
+    game->player.y_start_pos = game->player.y_pos;
+}
+
+
+int key_prss_call_back(int keycode,t_game *game)
+{
+    if(keycode == ESC)
+        mlx_destroy_display(game->mlx);
+        //TODO: free and exit 
+    else if(keycode == UPPER_KEY || keycode == 'w' || keycode == 'W')
+        game->player.y_pos = game->player.y_start_pos - SCALE;
+    else if(keycode == LEFT_KEY || keycode == 'a'|| keycode == 'A')
+        game->player.x_pos = game->player.x_start_pos - SCALE;
+    else if(keycode == RIGHT_KEY|| keycode == 'd'|| keycode == 'D')
+        game->player.x_pos = game->player.x_start_pos + SCALE;
+    else if(keycode == DOWN_KEY || keycode == 's'|| keycode == 'S')
+        game->player.y_pos = game->player.y_start_pos + SCALE;
+    return 0;
+}
+
+int put_next_frame(t_game *game)
+{
+    draw_next_frame(game);
+    mlx_put_image_to_window(game->mlx, game->win, game->image, 0, 0);
     return (0);
 }
 
 int load_images(t_game *game)
 {
-    if (!(game->obstacl.image = mlx_xpm_file_to_image(game->mlx, "/home/mbouhia/game/sprites/Other/Walls/wall.xpm",
+    if (!(game->obstacl.image = mlx_xpm_file_to_image(game->mlx, "sprites/Other/Walls/wall.xpm",
         &game->obstacl.width, &game->obstacl.height)))
         return (-1);
     if (!(game->obstacl.image_addr = mlx_get_data_addr(game->obstacl.image,
         &game->obstacl.bpp, &game->obstacl.line_size, &game->obstacl.endian)))
         return (-1);
-    if (!(game->floor.image = mlx_xpm_file_to_image(game->mlx, "/home/mbouhia/game/sprites/Other/Walls/wall.xpm",
+    if (!(game->floor.image = mlx_xpm_file_to_image(game->mlx, "sprites/Other/Walls/black.xpm",
         &game->floor.width, &game->floor.height)))
         return (-1);
     if (!(game->floor.image_addr = mlx_get_data_addr(game->floor.image,
         &game->floor.bpp, &game->floor.line_size, &game->floor.endian)))
         return (-1);
-    if (!(game->collectable.image = mlx_xpm_file_to_image(game->mlx, "/home/mbouhia/game/sprites/Other/Pacdots/pacdot_food.xpm",
+    if (!(game->collectable.image = mlx_xpm_file_to_image(game->mlx, "sprites/Other/Pacdots/pacdot_food.xpm",
         &game->collectable.width, &game->collectable.height)))
         return (-1);
     if (!(game->collectable.image_addr = mlx_get_data_addr(game->collectable.image,
         &game->collectable.bpp, &game->collectable.line_size, &game->collectable.endian)))
+        return (-1);
+    if (!(game->player.image = mlx_xpm_file_to_image(game->mlx, "pac_frames.xpm",
+        &game->player.width, &game->player.height)))
+        return (-1);
+    if (!(game->player.image_addr = mlx_get_data_addr(game->player.image,
+        &game->player.bpp, &game->player.line_size, &game->player.endian)))
         return (-1);
         
     return (0);
@@ -50,12 +78,12 @@ int draw_map_to_image(t_game *game)
         j = 0;
         while (j < game->map.width)
         {
-            // if (game->map.map[i][j] == '0')
-            // {
-            //     game->floor.x_pos = j * SCALE;
-            //     game->floor.y_pos = i * SCALE;
-            //     draw_to_image(game, game->floor);
-            // }
+            if (game->map.map[i][j] == '0')
+            {
+                game->floor.x_pos = j * SCALE;
+                game->floor.y_pos = i * SCALE;
+                draw_to_image(game, game->floor);
+            }
              if (game->map.map[i][j] == '1')
             {
                 game->obstacl.x_pos = j * SCALE;
@@ -64,12 +92,15 @@ int draw_map_to_image(t_game *game)
             }
             else if (game->map.map[i][j] == 'C')
             {
-                // game->floor.x_pos = j * SCALE;
-                // game->floor.y_pos = i * SCALE;
                 game->collectable.x_pos = j * SCALE;
                 game->collectable.y_pos = i * SCALE;
-                // draw_to_image(game, game->floor);
                 draw_to_image(game, game->collectable);
+            }
+            else if (game->map.map[i][j] == 'P')
+            {
+                game->player.x_start_pos = j * SCALE;
+                game->player.y_start_pos = i * SCALE;
+                draw_to_image(game, game->player);
             }
             j++;
         }
@@ -146,6 +177,7 @@ int start_game(t_game *game)
         return (-1);
         
     mlx_loop_hook(game->mlx, put_next_frame, game);
+    mlx_key_hook(game->win, key_prss_call_back, game);
     mlx_loop(game->mlx);
     return (0);
 }
