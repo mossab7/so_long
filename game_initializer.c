@@ -50,13 +50,13 @@ int draw_map_to_image(t_game *game)
         j = 0;
         while (j < game->map.width)
         {
-            if (game->map.map[i][j] == '0')
-            {
-                game->floor.x_pos = j * SCALE;
-                game->floor.y_pos = i * SCALE;
-                draw_to_image(game, game->floor);
-            }
-            else if (game->map.map[i][j] == '1')
+            // if (game->map.map[i][j] == '0')
+            // {
+            //     game->floor.x_pos = j * SCALE;
+            //     game->floor.y_pos = i * SCALE;
+            //     draw_to_image(game, game->floor);
+            // }
+             if (game->map.map[i][j] == '1')
             {
                 game->obstacl.x_pos = j * SCALE;
                 game->obstacl.y_pos = i * SCALE;
@@ -64,11 +64,11 @@ int draw_map_to_image(t_game *game)
             }
             else if (game->map.map[i][j] == 'C')
             {
-                game->floor.x_pos = j * SCALE;
-                game->floor.y_pos = i * SCALE;
+                // game->floor.x_pos = j * SCALE;
+                // game->floor.y_pos = i * SCALE;
                 game->collectable.x_pos = j * SCALE;
                 game->collectable.y_pos = i * SCALE;
-                draw_to_image(game, game->floor);
+                // draw_to_image(game, game->floor);
                 draw_to_image(game, game->collectable);
             }
             j++;
@@ -111,7 +111,7 @@ int start_game(t_game *game)
         return (-1);
         
     game->win = mlx_new_window(game->mlx, (game->map.width - 1) * SCALE,
-        game->map.height * SCALE, "so_long");
+        (game->map.height + 3) * SCALE, "so_long");
     if (!game->win)
     {
         mlx_destroy_display(game->mlx);

@@ -7,7 +7,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-#define SCALE 64
+#define SCALE 32
 
 typedef struct s_map
 {
