@@ -54,6 +54,7 @@ typedef struct s_game
     t_vars enemy;
     t_vars obstacl;
     t_vars floor;
+    t_vars collectable;
 }t_game;
 
 void free_map_resources(char **map, int size);
