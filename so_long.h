@@ -45,6 +45,7 @@ typedef struct s_vars
     int y_pos;
     int x_start_pos;
     int y_start_pos;
+    int frame_x;
 }t_vars;
 
 typedef struct s_game
@@ -64,6 +65,11 @@ typedef struct s_game
     t_vars obstacl;
     t_vars floor;
     t_vars collectable;
+    int frame_counter;
+    int frame_x;
+    int frame_flag;
+    int frame_range;
+    int start_game_flag;
 }t_game;
 
 void free_map_resources(char **map, int size);

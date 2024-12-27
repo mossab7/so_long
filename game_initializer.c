@@ -1,37 +1,75 @@
 #include "so_long.h"
 
-//TO DO: fix starting position of the player
-//fix player touching the wall add animation 
 
-int draw_next_frame(t_game *game)
+
+int draw_animation(t_game *game)
 {
-    game->floor.x_pos = game->player.x_start_pos;
-    game->floor.y_pos = game->player.y_start_pos;
-    draw_to_image(game,game->floor);
-    draw_to_image(game,game->player);
-    game->player.x_start_pos = game->player.x_pos;
-    game->player.y_start_pos = game->player.y_pos;
+    if(game->start_game_flag == 0)
+        return 0;
+    if(game->player.frame_x >= SCALE*2 || game->frame_flag == 1)
+            game->player.frame_x -= SCALE;
+    else if(game->player.frame_x < SCALE*2)
+            game->player.frame_x += SCALE;
+    if(game->player.frame_x == SCALE*2)
+        game->frame_flag = 1;
+    else if(game->player.frame_x == 0)
+        game->frame_flag = 0;
+    return 0;
 }
-
 
 int key_prss_call_back(int keycode,t_game *game)
 {
+    game->start_game_flag = 1;
     if(keycode == ESC)
         mlx_destroy_display(game->mlx);
-        //TODO: free and exit 
     else if(keycode == UPPER_KEY || keycode == 'w' || keycode == 'W')
+    {
         game->player.y_pos = game->player.y_start_pos - SCALE;
+        // game->player.frame_x = SCALE * 5;
+    }
     else if(keycode == LEFT_KEY || keycode == 'a'|| keycode == 'A')
+    {
         game->player.x_pos = game->player.x_start_pos - SCALE;
+        // game->player.frame_x = SCALE;
+    }
     else if(keycode == RIGHT_KEY|| keycode == 'd'|| keycode == 'D')
+    {
         game->player.x_pos = game->player.x_start_pos + SCALE;
+        // game->player.frame_x = SCALE * 3;
+    }
     else if(keycode == DOWN_KEY || keycode == 's'|| keycode == 'S')
+    {
         game->player.y_pos = game->player.y_start_pos + SCALE;
+        // game->player.frame_x = SCALE * 7;
+    }
+    return 0;
+}
+
+int draw_next_frame(t_game *game)
+{
+    printf("x:%d\ny:%d",game->player.x_pos,game->player.y_pos);
+    if(game->map.map[game->player.y_pos/SCALE][game->player.x_pos/SCALE] != '1')
+    {   
+        if(game->frame_counter % 100 == 0)
+            draw_animation(game);
+        game->floor.x_pos = game->player.x_start_pos;
+        game->floor.y_pos = game->player.y_start_pos;
+        draw_to_image(game, game->floor);
+        game->player.x_start_pos = game->player.x_pos;
+        game->player.y_start_pos = game->player.y_pos;
+        draw_to_image(game, game->player);
+    }
+    else
+    {
+        game->player.x_pos = game->player.x_start_pos;
+        game->player.y_pos = game->player.y_start_pos;
+    }
     return 0;
 }
 
 int put_next_frame(t_game *game)
 {
+    game->frame_counter++;
     draw_next_frame(game);
     mlx_put_image_to_window(game->mlx, game->win, game->image, 0, 0);
     return (0);
@@ -100,6 +138,8 @@ int draw_map_to_image(t_game *game)
             {
                 game->player.x_start_pos = j * SCALE;
                 game->player.y_start_pos = i * SCALE;
+                game->player.x_pos = game->player.x_start_pos;
+                game->player.y_pos = game->player.y_start_pos;
                 draw_to_image(game, game->player);
             }
             j++;
@@ -113,15 +153,17 @@ int draw_to_image(t_game *game, t_vars to_draw)
 {
     int y = 0;
     int x;
+    int src_x;
     char *src;
     char *dst;
 
     while (y < SCALE)
     {
         x = 0;
+        src_x = to_draw.frame_x;
         while (x < SCALE)
         {
-            src = to_draw.image_addr + (y * to_draw.line_size + x * (to_draw.bpp / 8));
+            src = to_draw.image_addr + (y * to_draw.line_size + src_x * (to_draw.bpp / 8));
             if (*(unsigned int *)src != 0xFF000000)
             {
                 dst = game->image_addr + ((to_draw.y_pos + y) * game->line_size + 
@@ -129,6 +171,7 @@ int draw_to_image(t_game *game, t_vars to_draw)
                 *(unsigned int *)dst = *(unsigned int *)src;
             }
             x++;
+            src_x++;
         }
         y++;
     }
@@ -177,7 +220,7 @@ int start_game(t_game *game)
         return (-1);
         
     mlx_loop_hook(game->mlx, put_next_frame, game);
-    mlx_key_hook(game->win, key_prss_call_back, game);
+    mlx_hook(game->win,2,1L<<0, key_prss_call_back, game);
     mlx_loop(game->mlx);
     return (0);
 }
