@@ -16,13 +16,14 @@ typedef struct s_map
     int width;
 } t_map;
 
+
 typedef enum e_key
 {
     ESC = 65307,
-    UPPER_KEY = 65362,  
-    LEFT_KEY = 65361,
-    DOWN_KEY = 65364,
-    RIGHT_KEY = 65363
+    UPPER = 65362,  
+    LEFT = 65361,
+    DOWN = 65364,
+    RIGHT = 65363
 } t_key;               
 
 typedef struct s_player
@@ -46,6 +47,7 @@ typedef struct s_vars
     int x_start_pos;
     int y_start_pos;
     int frame_x;
+    int frame_y;
 }t_vars;
 
 typedef struct s_game
@@ -70,6 +72,7 @@ typedef struct s_game
     int frame_flag;
     int frame_range;
     int start_game_flag;
+    t_key deraction;
 }t_game;
 
 void free_map_resources(char **map, int size);

@@ -1,7 +1,5 @@
 #include "so_long.h"
 
-
-
 int draw_animation(t_game *game)
 {
     if(game->start_game_flag == 0)
@@ -21,26 +19,30 @@ int key_prss_call_back(int keycode,t_game *game)
 {
     game->start_game_flag = 1;
     if(keycode == ESC)
+    {
+        //fucking free (;
         mlx_destroy_display(game->mlx);
-    else if(keycode == UPPER_KEY || keycode == 'w' || keycode == 'W')
+        exit(1);
+    }
+    else if(keycode == UPPER || keycode == 'w' || keycode == 'W')
     {
         game->player.y_pos = game->player.y_start_pos - SCALE;
-        // game->player.frame_x = SCALE * 5;
+        game->player.frame_y = SCALE * 2;
     }
-    else if(keycode == LEFT_KEY || keycode == 'a'|| keycode == 'A')
+    else if(keycode == LEFT || keycode == 'a'|| keycode == 'A')
     {
         game->player.x_pos = game->player.x_start_pos - SCALE;
-        // game->player.frame_x = SCALE;
+        game->player.frame_y = SCALE * 3;
     }
-    else if(keycode == RIGHT_KEY|| keycode == 'd'|| keycode == 'D')
+    else if(keycode == RIGHT|| keycode == 'd'|| keycode == 'D')
     {
         game->player.x_pos = game->player.x_start_pos + SCALE;
-        // game->player.frame_x = SCALE * 3;
+        game->player.frame_y = 0;
     }
-    else if(keycode == DOWN_KEY || keycode == 's'|| keycode == 'S')
+    else if(keycode == DOWN || keycode == 's'|| keycode == 'S')
     {
         game->player.y_pos = game->player.y_start_pos + SCALE;
-        // game->player.frame_x = SCALE * 7;
+        game->player.frame_y = SCALE;
     }
     return 0;
 }
@@ -163,7 +165,7 @@ int draw_to_image(t_game *game, t_vars to_draw)
         src_x = to_draw.frame_x;
         while (x < SCALE)
         {
-            src = to_draw.image_addr + (y * to_draw.line_size + src_x * (to_draw.bpp / 8));
+            src = to_draw.image_addr + (to_draw.frame_y * to_draw.line_size + src_x * (to_draw.bpp / 8));
             if (*(unsigned int *)src != 0xFF000000)
             {
                 dst = game->image_addr + ((to_draw.y_pos + y) * game->line_size + 
@@ -174,6 +176,7 @@ int draw_to_image(t_game *game, t_vars to_draw)
             src_x++;
         }
         y++;
+        to_draw.frame_y++;
     }
     return (0);
 }
