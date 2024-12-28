@@ -1,5 +1,92 @@
 #include "so_long.h"
 
+
+//TODO : add enemys
+int key_prss_call_back(int keycode, t_game *game)
+{
+    game->start_game_flag = 1;
+    if(keycode == ESC)
+    {
+        mlx_destroy_display(game->mlx);
+        exit(1);
+    }
+    
+    if(keycode == UP || keycode == 'w' || keycode == 'W')
+    {
+        game->new_direction = UP;
+        game->player.frame_y = SCALE * 2;
+    }
+    else if(keycode == LEFT || keycode == 'a'|| keycode == 'A')
+    {
+        game->new_direction = LEFT;
+        game->player.frame_y = SCALE * 3;
+    }
+    else if(keycode == RIGHT|| keycode == 'd'|| keycode == 'D')
+    {
+        game->new_direction = RIGHT;
+        game->player.frame_y = 0;
+    }
+    else if(keycode == DOWN || keycode == 's'|| keycode == 'S')
+    {
+        game->new_direction = DOWN;
+        game->player.frame_y = SCALE;
+    }
+    return 0;
+}
+
+void update_deraction(t_game *game)
+{
+    game->in_action = 0;
+
+    if(game->player.y_pos < game->player.y_end_pos)
+    {
+        game->player.y_pos++;
+        game->in_action = 1;
+    }
+    else if(game->player.y_pos > game->player.y_end_pos)
+    {
+        game->player.y_pos--;
+        game->in_action = 1;
+    }
+    else if(game->player.x_pos < game->player.x_end_pos)
+    {
+        game->player.x_pos++;
+        game->in_action = 1;
+    }
+    else if(game->player.x_pos > game->player.x_end_pos)
+    {
+        game->player.x_pos--;
+        game->in_action = 1;
+    }
+
+    if(game->player.y_end_pos == game->player.y_pos && game->player.x_end_pos == game->player.x_pos)
+    {
+        game->direction = game->new_direction;
+        if(game->direction == UP && game->map.map[(game->player.y_pos - SCALE)/SCALE][game->player.x_pos/SCALE] != '1')
+            game->player.y_end_pos = game->player.y_pos - SCALE;
+        else if(game->direction == DOWN && game->map.map[(game->player.y_pos + SCALE)/SCALE][game->player.x_pos/SCALE] != '1')
+            game->player.y_end_pos = game->player.y_pos + SCALE;
+        else if(game->direction == LEFT && game->map.map[game->player.y_pos/SCALE][(game->player.x_pos - SCALE)/SCALE] != '1')
+            game->player.x_end_pos = game->player.x_pos - SCALE;
+        else if(game->direction == RIGHT && game->map.map[game->player.y_pos/SCALE][(game->player.x_pos + SCALE)/SCALE] != '1')
+            game->player.x_end_pos = game->player.x_pos + SCALE;
+    }
+}
+
+
+int put_next_frame(t_game *game)
+{
+    game->frame_counter++;
+    if(game->frame_counter % 10 == 0)
+    {
+        update_deraction(game);
+    }
+    draw_next_frame(game);
+    mlx_put_image_to_window(game->mlx, game->win, game->image, 0, 0);
+
+    return (0);
+}
+
 int draw_animation(t_game *game)
 {
     if(game->start_game_flag == 0)
@@ -14,41 +101,6 @@ int draw_animation(t_game *game)
         game->frame_flag = 0;
     return 0;
 }
-
-int key_prss_call_back(int keycode,t_game *game)
-{
-    game->start_game_flag = 1;
-    if(keycode == ESC)
-    {
-        mlx_destroy_display(game->mlx);
-        exit(1);
-    }
-    if (keycode != game->direction && game->player.x_end_pos != game->player.x_pos && game->player.y_end_pos != game->player.y_pos)
-        return 0;
-    if((keycode == UP || keycode == 'w' || keycode == 'W'))
-    {
-        game->direction = UP;
-        game->player.frame_y = SCALE * 2;
-    }
-    else if((keycode == LEFT || keycode == 'a'|| keycode == 'A'))
-    {
-        game->direction = LEFT;
-        game->player.frame_y = SCALE * 3;
-    }
-    else if((keycode == RIGHT|| keycode == 'd'|| keycode == 'D'))
-    {
-        game->direction = RIGHT;
-        game->player.frame_y = 0;
-    }
-    else if((keycode == DOWN || keycode == 's'|| keycode == 'S'))
-    {
-        game->direction = DOWN;
-        game->player.frame_y = SCALE;
-    }
-    return 0;
-}
-
-
 
 int draw_next_frame(t_game *game)
 {
@@ -69,51 +121,6 @@ int draw_next_frame(t_game *game)
         game->player.y_pos = game->player.y_start_pos;
     }
     return 0;
-}
-
-void update_deraction(t_game *game)
-{
-
-    int x_pos = game->player.x_pos + SCALE / 2;
-    int y_pos = game->player.y_pos + SCALE / 2;
-    game->in_action = 0;
-    if(game->direction == UP && game->map.map[(y_pos - (SCALE -  (game->move_counter + 1)))/SCALE][x_pos/SCALE] != '1')
-    {
-        game->player.y_pos--;
-        game->in_action = 1;
-    }
-    else if(game->direction == DOWN && game->map.map[(y_pos + (SCALE -  (game->move_counter + 1)))/SCALE][x_pos/SCALE] != '1')
-    {
-        game->player.y_pos++;
-        game->move_counter++;
-        game->in_action = 1;
-    }
-    else if(game->direction == LEFT && game->map.map[y_pos/SCALE][(x_pos - (SCALE -  (game->move_counter + 1)))/SCALE] != '1')
-    {
-        game->move_counter++;
-        game->player.x_pos--;
-        game->in_action = 1;
-    }
-    else if(game->direction == RIGHT && game->map.map[y_pos / SCALE][(x_pos + (SCALE -  (game->move_counter + 1)))/SCALE] != '1')
-    {
-        game->move_counter++;
-        game->player.x_pos++;
-        game->in_action = 1;
-    }
-}
-
-int put_next_frame(t_game *game)
-{
-    game->frame_counter++;
-    if(game->frame_counter % 10 == 0)
-    {
-        update_deraction(game);
-        if(game->move_counter == SCALE)
-            game->move_counter = 0;
-    }
-    draw_next_frame(game);
-    mlx_put_image_to_window(game->mlx, game->win, game->image, 0, 0);
-    return (0);
 }
 
 int load_images(t_game *game)
@@ -181,6 +188,8 @@ int draw_map_to_image(t_game *game)
                 game->player.y_start_pos = i * SCALE;
                 game->player.x_pos = game->player.x_start_pos;
                 game->player.y_pos = game->player.y_start_pos;
+                game->player.x_end_pos = game->player.x_pos;
+                game->player.y_end_pos = game->player.y_pos;
                 draw_to_image(game, game->player);
             }
             j++;

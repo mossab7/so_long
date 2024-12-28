@@ -75,6 +75,7 @@ typedef struct s_game
     int frame_range;
     int start_game_flag;
     t_key direction;
+    t_key new_direction;
     int move_counter;
     int in_action;
 }t_game;
