@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-MSRCS = so_long.c map.c game_initializer.c
+MSRCS = so_long.c map.c game_initializer.c 
 LIBFT = libft.a
 LIBFT_DIR = includes/libft
 SO_LONG = so_long

@@ -10,31 +10,29 @@ int key_prss_call_back(int keycode, t_game *game)
         mlx_destroy_display(game->mlx);
         exit(1);
     }
-    
     if(keycode == UP || keycode == 'w' || keycode == 'W')
     {
-        game->new_direction = UP;
+        game->player.new_direction = UP;
         game->player.frame_y = SCALE * 2;
     }
     else if(keycode == LEFT || keycode == 'a'|| keycode == 'A')
     {
-        game->new_direction = LEFT;
+        game->player.new_direction = LEFT;
         game->player.frame_y = SCALE * 3;
     }
     else if(keycode == RIGHT|| keycode == 'd'|| keycode == 'D')
     {
-        game->new_direction = RIGHT;
+        game->player.new_direction = RIGHT;
         game->player.frame_y = 0;
     }
     else if(keycode == DOWN || keycode == 's'|| keycode == 'S')
     {
-        game->new_direction = DOWN;
+        game->player.new_direction = DOWN;
         game->player.frame_y = SCALE;
     }
     return 0;
 }
-
-void update_deraction(t_game *game)
+void update_direction(t_game *game)
 {
     game->in_action = 0;
 
@@ -58,32 +56,27 @@ void update_deraction(t_game *game)
         game->player.x_pos--;
         game->in_action = 1;
     }
-
     if(game->player.y_end_pos == game->player.y_pos && game->player.x_end_pos == game->player.x_pos)
     {
-        game->direction = game->new_direction;
-        if(game->direction == UP && game->map.map[(game->player.y_pos - SCALE)/SCALE][game->player.x_pos/SCALE] != '1')
+        game->player.direction = game->player.new_direction;
+        if(game->player.direction == UP && game->map.map[(game->player.y_pos - SCALE)/SCALE][game->player.x_pos/SCALE] != '1')
             game->player.y_end_pos = game->player.y_pos - SCALE;
-        else if(game->direction == DOWN && game->map.map[(game->player.y_pos + SCALE)/SCALE][game->player.x_pos/SCALE] != '1')
+        else if(game->player.direction == DOWN && game->map.map[(game->player.y_pos + SCALE)/SCALE][game->player.x_pos/SCALE] != '1')
             game->player.y_end_pos = game->player.y_pos + SCALE;
-        else if(game->direction == LEFT && game->map.map[game->player.y_pos/SCALE][(game->player.x_pos - SCALE)/SCALE] != '1')
+        else if(game->player.direction == LEFT && game->map.map[game->player.y_pos/SCALE][(game->player.x_pos - SCALE)/SCALE] != '1')
             game->player.x_end_pos = game->player.x_pos - SCALE;
-        else if(game->direction == RIGHT && game->map.map[game->player.y_pos/SCALE][(game->player.x_pos + SCALE)/SCALE] != '1')
+        else if(game->player.direction == RIGHT && game->map.map[game->player.y_pos/SCALE][(game->player.x_pos + SCALE)/SCALE] != '1')
             game->player.x_end_pos = game->player.x_pos + SCALE;
     }
 }
-
 
 int put_next_frame(t_game *game)
 {
     game->frame_counter++;
     if(game->frame_counter % 10 == 0)
-    {
-        update_deraction(game);
-    }
+        update_direction(game);
     draw_next_frame(game);
-    mlx_put_image_to_window(game->mlx, game->win, game->image, 0, 0);
-
+    mlx_put_image_to_window(game->mlx, game->win, game->canvas.image, 0, 0);
     return (0);
 }
 
@@ -149,6 +142,12 @@ int load_images(t_game *game)
     if (!(game->player.image_addr = mlx_get_data_addr(game->player.image,
         &game->player.bpp, &game->player.line_size, &game->player.endian)))
         return (-1);
+    if (!(game->portal.image = mlx_xpm_file_to_image(game->mlx, "sprites/Other/Portal/portal.xpm",
+        &game->portal.width, &game->portal.height)))
+        return (-1);
+    if (!(game->portal.image_addr = mlx_get_data_addr(game->portal.image,
+        &game->portal.bpp, &game->portal.line_size, &game->portal.endian)))
+        return (-1);
         
     return (0);
 }
@@ -181,6 +180,12 @@ int draw_map_to_image(t_game *game)
                 game->collectable.x_pos = j * SCALE;
                 game->collectable.y_pos = i * SCALE;
                 draw_to_image(game, game->collectable);
+            }
+            else if (game->map.map[i][j] == 'E')
+            {
+                game->portal.x_pos = j * SCALE;
+                game->portal.y_pos = i * SCALE;
+                draw_to_image(game, game->portal);
             }
             else if (game->map.map[i][j] == 'P')
             {
@@ -216,8 +221,8 @@ int draw_to_image(t_game *game, t_vars to_draw)
             src = to_draw.image_addr + (to_draw.frame_y * to_draw.line_size + src_x * (to_draw.bpp / 8));
             if (*(unsigned int *)src != 0xFF000000)
             {
-                dst = game->image_addr + ((to_draw.y_pos + y) * game->line_size + 
-                    (to_draw.x_pos + x) * (game->bpp / 8));
+                dst = game->canvas.image_addr + ((to_draw.y_pos + y) * game->canvas.line_size + 
+                    (to_draw.x_pos + x) * (game->canvas.bpp / 8));
                 *(unsigned int *)dst = *(unsigned int *)src;
             }
             x++;
@@ -244,9 +249,9 @@ int start_game(t_game *game)
         return (-1);
     }
     
-    game->image = mlx_new_image(game->mlx, game->map.width * SCALE,
+    game->canvas.image = mlx_new_image(game->mlx, game->map.width * SCALE,
         game->map.height * SCALE);
-    if (!game->image)
+    if (!game->canvas.image)
     {
         mlx_destroy_window(game->mlx, game->win);
         mlx_destroy_display(game->mlx);
@@ -254,11 +259,11 @@ int start_game(t_game *game)
         return (-1);
     }
     
-    game->image_addr = mlx_get_data_addr(game->image, &game->bpp,
-        &game->line_size, &game->endian);
-    if (!game->image_addr)
+    game->canvas.image_addr = mlx_get_data_addr(game->canvas.image, &game->canvas.bpp,
+        &game->canvas.line_size, &game->canvas.endian);
+    if (!game->canvas.image_addr)
     {
-        mlx_destroy_image(game->mlx, game->image);
+        mlx_destroy_image(game->mlx, game->canvas.image);
         mlx_destroy_window(game->mlx, game->win);
         mlx_destroy_display(game->mlx);
         free(game->mlx);

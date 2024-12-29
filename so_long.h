@@ -8,7 +8,7 @@
 #include <stdlib.h>
 
 #define SCALE 32
-
+#define NUM_ENEMIES 7
 typedef struct s_map
 {
     char **map;
@@ -24,14 +24,7 @@ typedef enum e_key
     LEFT = 65361,
     DOWN = 65364,
     RIGHT = 65363
-} t_key;               
-
-typedef struct s_player
-{
-    void *player_image;
-    int player_pos_x;
-    int player_pos_y;
-}t_player;
+} t_key;
 
 typedef struct s_vars
 {
@@ -50,13 +43,12 @@ typedef struct s_vars
     int y_end_pos;
     int frame_x;
     int frame_y;
+    t_key direction;
+    t_key new_direction;
 }t_vars;
 
-typedef struct s_game
+typedef struct s_canvas
 {
-    t_map map;
-    void *mlx;
-    void *win;
     void *image;
     void *image_addr;
     int bpp;
@@ -64,19 +56,24 @@ typedef struct s_game
     int endian;
     int height;
     int width;
+}t_canvas;
+
+
+typedef struct s_game
+{
+    t_map map;
+    void *mlx;
+    void *win;
     t_vars player;
-    t_vars enemy;
+    t_vars enemy[NUM_ENEMIES];
     t_vars obstacl;
     t_vars floor;
+    t_vars portal;
     t_vars collectable;
+    t_canvas canvas;
     int frame_counter;
-    int frame_x;
     int frame_flag;
-    int frame_range;
     int start_game_flag;
-    t_key direction;
-    t_key new_direction;
-    int move_counter;
     int in_action;
 }t_game;
 
