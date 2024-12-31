@@ -26,6 +26,19 @@ typedef enum e_key
     RIGHT = 65363
 } t_key;
 
+typedef struct s_point
+{
+    int x;
+    int y;
+} t_point;
+
+typedef struct s_stack
+{
+    t_point *points;
+    int     top;
+    int     capacity;
+} t_stack;
+
 typedef struct s_vars
 {
     void *image;
@@ -75,10 +88,31 @@ typedef struct s_game
     int frame_flag;
     int start_game_flag;
     int in_action;
+    int enemies_counter;
 }t_game;
 
 void free_map_resources(char **map, int size);
 int ft_realloc(char ***arr, char *str, int size);
 int read_map(char *map_path, t_game *game);
 int start_game(t_game *game);
+void draw_player_and_enemeis_tile_to_image(int i_pos,int j_pos,t_vars *to_draw,t_game *game);
+int handle_player_movement_input(int keycode, t_game *game);
+void calculate_next_position(t_game *game);
+void move_player_towards_target(t_game *game);
+void update_enemy_sprite_direction(t_game *game);
+void update_game_state(t_game *game);
+int render_game_frame(t_game *game);
+void animate_player_sprite(t_game *game);
+void animate_enemy_sprite(t_game *game);
+int update_sprite_animation_frame(t_game *game,t_vars *to_draw,int frames);
+void render_character_movement(t_game *game,t_vars *to_draw,int in_action);
+void update_all_characters_positions(t_game *game);
+int render_next_game_frame(t_game *game);
+int load_images(t_game *game);
+int render_game_map(t_game *game);
+int draw_sprite_to_canvas(t_game *game, t_vars to_draw);
+int initialize_game_window(t_game *game);
+void initialize_character_position(int i_pos,int j_pos,t_vars *to_draw,t_game *game);
+void render_map_tile(int i_pos,int j_pos,t_vars *tile,t_game *game);
+int check_map_if_valid(t_game *game);
 #endif

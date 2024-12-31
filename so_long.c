@@ -18,7 +18,13 @@ int main(int ac, char **av)
         return (1);
     }
 
-    if(start_game(&game) == -1)
+    if (check_map_if_valid(&game) == -1)
+    {
+        ft_putendl_fd("Error: Map is NOT valid", 2);
+        return (1);
+    }
+
+    if(initialize_game_window(&game) == -1)
     {
         ft_putendl_fd("Error: Failed to launch the game",2);
         free_map_resources(game.map.map, game.map.height);

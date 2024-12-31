@@ -1,158 +1,54 @@
 #include "so_long.h"
 
-
-//TODO : add enemys
-int key_prss_call_back(int keycode, t_game *game)
-{
-    game->start_game_flag = 1;
-    if(keycode == ESC)
-    {
-        mlx_destroy_display(game->mlx);
-        exit(1);
-    }
-    if(keycode == UP || keycode == 'w' || keycode == 'W')
-    {
-        game->player.new_direction = UP;
-        game->player.frame_y = SCALE * 2;
-    }
-    else if(keycode == LEFT || keycode == 'a'|| keycode == 'A')
-    {
-        game->player.new_direction = LEFT;
-        game->player.frame_y = SCALE * 3;
-    }
-    else if(keycode == RIGHT|| keycode == 'd'|| keycode == 'D')
-    {
-        game->player.new_direction = RIGHT;
-        game->player.frame_y = 0;
-    }
-    else if(keycode == DOWN || keycode == 's'|| keycode == 'S')
-    {
-        game->player.new_direction = DOWN;
-        game->player.frame_y = SCALE;
-    }
-    return 0;
-}
-void update_direction(t_game *game)
-{
-    game->in_action = 0;
-
-    if(game->player.y_pos < game->player.y_end_pos)
-    {
-        game->player.y_pos++;
-        game->in_action = 1;
-    }
-    else if(game->player.y_pos > game->player.y_end_pos)
-    {
-        game->player.y_pos--;
-        game->in_action = 1;
-    }
-    else if(game->player.x_pos < game->player.x_end_pos)
-    {
-        game->player.x_pos++;
-        game->in_action = 1;
-    }
-    else if(game->player.x_pos > game->player.x_end_pos)
-    {
-        game->player.x_pos--;
-        game->in_action = 1;
-    }
-    if(game->player.y_end_pos == game->player.y_pos && game->player.x_end_pos == game->player.x_pos)
-    {
-        game->player.direction = game->player.new_direction;
-        if(game->player.direction == UP && game->map.map[(game->player.y_pos - SCALE)/SCALE][game->player.x_pos/SCALE] != '1')
-            game->player.y_end_pos = game->player.y_pos - SCALE;
-        else if(game->player.direction == DOWN && game->map.map[(game->player.y_pos + SCALE)/SCALE][game->player.x_pos/SCALE] != '1')
-            game->player.y_end_pos = game->player.y_pos + SCALE;
-        else if(game->player.direction == LEFT && game->map.map[game->player.y_pos/SCALE][(game->player.x_pos - SCALE)/SCALE] != '1')
-            game->player.x_end_pos = game->player.x_pos - SCALE;
-        else if(game->player.direction == RIGHT && game->map.map[game->player.y_pos/SCALE][(game->player.x_pos + SCALE)/SCALE] != '1')
-            game->player.x_end_pos = game->player.x_pos + SCALE;
-    }
-}
-
-int put_next_frame(t_game *game)
-{
-    game->frame_counter++;
-    if(game->frame_counter % 10 == 0)
-        update_direction(game);
-    draw_next_frame(game);
-    mlx_put_image_to_window(game->mlx, game->win, game->canvas.image, 0, 0);
-    return (0);
-}
-
-int draw_animation(t_game *game)
-{
-    if(game->start_game_flag == 0)
-        return 0;
-    if(game->player.frame_x >= SCALE*2 || game->frame_flag == 1)
-            game->player.frame_x -= SCALE;
-    else if(game->player.frame_x < SCALE*2)
-            game->player.frame_x += SCALE;
-    if(game->player.frame_x == SCALE*2)
-        game->frame_flag = 1;
-    else if(game->player.frame_x == 0)
-        game->frame_flag = 0;
-    return 0;
-}
-
-int draw_next_frame(t_game *game)
-{
-    if(game->in_action == 1)
-    {
-        if(game->frame_counter % 100 == 0)
-            draw_animation(game);
-        game->floor.x_pos = game->player.x_start_pos;
-        game->floor.y_pos = game->player.y_start_pos;
-        draw_to_image(game, game->floor);
-        game->player.x_start_pos = game->player.x_pos;
-        game->player.y_start_pos = game->player.y_pos;
-        draw_to_image(game, game->player);
-    }
-    else
-    {
-        game->player.x_pos = game->player.x_start_pos;
-        game->player.y_pos = game->player.y_start_pos;
-    }
-    return 0;
-}
-
 int load_images(t_game *game)
 {
-    if (!(game->obstacl.image = mlx_xpm_file_to_image(game->mlx, "sprites/Other/Walls/wall.xpm",
-        &game->obstacl.width, &game->obstacl.height)))
-        return (-1);
-    if (!(game->obstacl.image_addr = mlx_get_data_addr(game->obstacl.image,
-        &game->obstacl.bpp, &game->obstacl.line_size, &game->obstacl.endian)))
-        return (-1);
-    if (!(game->floor.image = mlx_xpm_file_to_image(game->mlx, "sprites/Other/Walls/black.xpm",
-        &game->floor.width, &game->floor.height)))
-        return (-1);
-    if (!(game->floor.image_addr = mlx_get_data_addr(game->floor.image,
-        &game->floor.bpp, &game->floor.line_size, &game->floor.endian)))
-        return (-1);
-    if (!(game->collectable.image = mlx_xpm_file_to_image(game->mlx, "sprites/Other/Pacdots/pacdot_food.xpm",
-        &game->collectable.width, &game->collectable.height)))
-        return (-1);
-    if (!(game->collectable.image_addr = mlx_get_data_addr(game->collectable.image,
-        &game->collectable.bpp, &game->collectable.line_size, &game->collectable.endian)))
-        return (-1);
-    if (!(game->player.image = mlx_xpm_file_to_image(game->mlx, "pac_frames.xpm",
-        &game->player.width, &game->player.height)))
-        return (-1);
-    if (!(game->player.image_addr = mlx_get_data_addr(game->player.image,
-        &game->player.bpp, &game->player.line_size, &game->player.endian)))
-        return (-1);
-    if (!(game->portal.image = mlx_xpm_file_to_image(game->mlx, "sprites/Other/Portal/portal.xpm",
-        &game->portal.width, &game->portal.height)))
-        return (-1);
-    if (!(game->portal.image_addr = mlx_get_data_addr(game->portal.image,
-        &game->portal.bpp, &game->portal.line_size, &game->portal.endian)))
-        return (-1);
-        
-    return (0);
+    char *image_path[] = {
+        "sprites/Other/Walls/wall.xpm",
+        "sprites/Other/Walls/black.xpm",
+        "sprites/Other/Pacdots/pacdot_food.xpm",
+        "pac_frames.xpm",
+        "sprites/Other/Portal/portal.xpm",
+        "sprites/Ghosts/R/red_ghost_frames.xpm",
+        "sprites/Ghosts/Y/red_yellow_frames.xpm",
+        "sprites/Ghosts/P/red_yellow_frames.xpm",
+        "sprites/Ghosts/O/red_yellow_frames.xpm",
+        "sprites/Ghosts/K/red_yellow_frames.xpm",
+        "sprites/Ghosts/G/red_yellow_frames.xpm",
+        "sprites/Ghosts/B/red_yellow_frames.xpm"
+    };
+
+    t_vars *images[] = {
+        &game->obstacl,
+        &game->floor,
+        &game->collectable,
+        &game->player,
+        &game->portal,
+        &game->enemy[0],
+        &game->enemy[1],
+        &game->enemy[2],
+        &game->enemy[3],
+        &game->enemy[4],
+        &game->enemy[5],
+        &game->enemy[6],
+    };
+
+    int i = 0;
+    while (i < sizeof(images)/sizeof(t_vars *))
+    {
+        images[i]->image = mlx_xpm_file_to_image(game->mlx, image_path[i], &images[i]->width, &images[i]->height);
+        if (!images[i]->image)
+            return (-1);  
+
+        images[i]->image_addr = mlx_get_data_addr(images[i]->image, &images[i]->bpp, &images[i]->line_size, &images[i]->endian);
+        if (!images[i]->image_addr)
+            return (-1); 
+        i++; 
+    }
+
+    return (0); 
 }
 
-int draw_map_to_image(t_game *game)
+int render_game_map(t_game *game)
 {
     int i;
     int j;
@@ -164,39 +60,17 @@ int draw_map_to_image(t_game *game)
         while (j < game->map.width)
         {
             if (game->map.map[i][j] == '0')
-            {
-                game->floor.x_pos = j * SCALE;
-                game->floor.y_pos = i * SCALE;
-                draw_to_image(game, game->floor);
-            }
+                render_map_tile(i,j,&game->floor,game);
              if (game->map.map[i][j] == '1')
-            {
-                game->obstacl.x_pos = j * SCALE;
-                game->obstacl.y_pos = i * SCALE;
-                draw_to_image(game, game->obstacl);
-            }
+                render_map_tile(i,j,&game->obstacl,game);
             else if (game->map.map[i][j] == 'C')
-            {
-                game->collectable.x_pos = j * SCALE;
-                game->collectable.y_pos = i * SCALE;
-                draw_to_image(game, game->collectable);
-            }
+                render_map_tile(i,j,&game->collectable,game);
             else if (game->map.map[i][j] == 'E')
-            {
-                game->portal.x_pos = j * SCALE;
-                game->portal.y_pos = i * SCALE;
-                draw_to_image(game, game->portal);
-            }
+                render_map_tile(i,j,&game->portal,game);
             else if (game->map.map[i][j] == 'P')
-            {
-                game->player.x_start_pos = j * SCALE;
-                game->player.y_start_pos = i * SCALE;
-                game->player.x_pos = game->player.x_start_pos;
-                game->player.y_pos = game->player.y_start_pos;
-                game->player.x_end_pos = game->player.x_pos;
-                game->player.y_end_pos = game->player.y_pos;
-                draw_to_image(game, game->player);
-            }
+                 initialize_character_position(i,j,&game->player,game);
+            else if(game->map.map[i][j] == 'X')
+                 initialize_character_position(i,j,&game->enemy[game->enemies_counter++],game);
             j++;
         }
         i++;
@@ -204,7 +78,7 @@ int draw_map_to_image(t_game *game)
     return (0);
 }
 
-int draw_to_image(t_game *game, t_vars to_draw)
+int draw_sprite_to_canvas(t_game *game, t_vars to_draw)
 {
     int y = 0;
     int x;
@@ -234,7 +108,7 @@ int draw_to_image(t_game *game, t_vars to_draw)
     return (0);
 }
 
-int start_game(t_game *game)
+int initialize_game_window(t_game *game)
 {
     game->mlx = mlx_init();
     if (!game->mlx)
@@ -272,11 +146,11 @@ int start_game(t_game *game)
     
     if (load_images(game) == -1)
         return (-1);
-    if (draw_map_to_image(game) == -1)
+    if (render_game_map(game) == -1)
         return (-1);
         
-    mlx_loop_hook(game->mlx, put_next_frame, game);
-    mlx_hook(game->win,2,1L<<0, key_prss_call_back, game);
+    mlx_loop_hook(game->mlx, render_game_frame, game);
+    mlx_hook(game->win,2,1L<<0, handle_player_movement_input, game);
     mlx_loop(game->mlx);
     return (0);
 }
