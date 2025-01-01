@@ -6,9 +6,18 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <math.h>
 
+#define MAX_MOVES 4
 #define SCALE 32
 #define NUM_ENEMIES 7
+
+typedef struct s_move {
+    int dx;
+    int dy;
+    float score;
+} t_move;
+
 typedef struct s_map
 {
     char **map;

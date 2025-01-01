@@ -78,35 +78,7 @@ int render_game_map(t_game *game)
     return (0);
 }
 
-int draw_sprite_to_canvas(t_game *game, t_vars to_draw)
-{
-    int y = 0;
-    int x;
-    int src_x;
-    char *src;
-    char *dst;
 
-    while (y < SCALE)
-    {
-        x = 0;
-        src_x = to_draw.frame_x;
-        while (x < SCALE)
-        {
-            src = to_draw.image_addr + (to_draw.frame_y * to_draw.line_size + src_x * (to_draw.bpp / 8));
-            if (*(unsigned int *)src != 0xFF000000)
-            {
-                dst = game->canvas.image_addr + ((to_draw.y_pos + y) * game->canvas.line_size + 
-                    (to_draw.x_pos + x) * (game->canvas.bpp / 8));
-                *(unsigned int *)dst = *(unsigned int *)src;
-            }
-            x++;
-            src_x++;
-        }
-        y++;
-        to_draw.frame_y++;
-    }
-    return (0);
-}
 
 int initialize_game_window(t_game *game)
 {

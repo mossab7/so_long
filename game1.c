@@ -120,8 +120,8 @@ int render_next_game_frame(t_game *game)
     return 0;
 }
 
-
 //start
+
 
 // Helper function to calculate distance between two points
 float calculate_distance(int x1, int y1, int x2, int y2) 
@@ -130,7 +130,8 @@ float calculate_distance(int x1, int y1, int x2, int y2)
 }
 
 // Helper function to check if a move is valid
-int is_valid_move(t_game *game, int enemy_idx, int new_x, int new_y) {
+int is_valid_move(t_game *game, int enemy_idx, int new_x, int new_y) 
+{
     // Check map boundaries
     if (new_x < 0 || new_x >= game->map.width * SCALE || 
         new_y < 0 || new_y >= game->map.height * SCALE)
@@ -141,7 +142,8 @@ int is_valid_move(t_game *game, int enemy_idx, int new_x, int new_y) {
         return 0;
         
     // Check collision with other enemies
-    for (int j = 0; j < game->enemies_counter; j++) {
+    for (int j = 0; j < game->enemies_counter; j++) 
+    {
         if (j != enemy_idx && 
             game->enemy[j].x_pos == new_x && 
             game->enemy[j].y_pos == new_y)
@@ -163,7 +165,8 @@ float evaluate_move(t_game *game, int enemy_idx, int new_x, int new_y)
     
     // Distance to other enemies (secondary factor)
     float min_enemy_dist = INFINITY;
-    for (int j = 0; j < game->enemies_counter; j++) {
+    for (int j = 0; j < game->enemies_counter; j++) 
+    {
         if (j != enemy_idx) {
             float enemy_dist = calculate_distance(new_x, new_y,
                 game->enemy[j].x_pos, game->enemy[j].y_pos);
@@ -191,7 +194,8 @@ void calculate_enemy_next_position(t_game *game)
     const int dx[MAX_MOVES] = {SCALE, -SCALE, 0, 0};
     const int dy[MAX_MOVES] = {0, 0, SCALE, -SCALE};
     
-    for (int i = 0; i < game->enemies_counter; i++) {
+    for (int i = 0; i < game->enemies_counter; i++) 
+    {
         t_vars *enemy = &game->enemy[i];
         
         // Only calculate new position if enemy has reached its current destination
@@ -203,11 +207,13 @@ void calculate_enemy_next_position(t_game *game)
         int valid_moves = 0;
 
         // Calculate scores for all possible moves
-        for (int m = 0; m < MAX_MOVES; m++) {
+        for (int m = 0; m < MAX_MOVES; m++) 
+        {
             int new_x = enemy->x_pos + dx[m];
             int new_y = enemy->y_pos + dy[m];
             
-            if (is_valid_move(game, i, new_x, new_y)) {
+            if (is_valid_move(game, i, new_x, new_y)) 
+            {
                 moves[valid_moves].dx = dx[m];
                 moves[valid_moves].dy = dy[m];
                 moves[valid_moves].score = evaluate_move(game, i, new_x, new_y);
@@ -221,7 +227,8 @@ void calculate_enemy_next_position(t_game *game)
             float aggression = calculate_distance(enemy->x_pos, enemy->y_pos,
                 game->player.x_pos, game->player.y_pos) < SCALE * 5 ? 0.9f : 0.7f;
                 
-            if (rand() / (float)RAND_MAX > aggression) {
+            if (rand() / (float)RAND_MAX > aggression) 
+            {
                 // Random move
                 int move_idx = rand() % valid_moves;
                 enemy->x_end_pos = enemy->x_pos + moves[move_idx].dx;
@@ -230,7 +237,8 @@ void calculate_enemy_next_position(t_game *game)
             {
                 // Find best move
                 int best_move = 0;
-                for (int m = 1; m < valid_moves; m++) {
+                for (int m = 1; m < valid_moves; m++) 
+                {
                     if (moves[m].score > moves[best_move].score)
                         best_move = m;
                 }
@@ -262,7 +270,6 @@ void move_enemy_towards_target(t_game *game)
 
 void update_game_state(t_game *game)
 {
-    static int i = 0;
     move_player_towards_target(game);
     update_enemy_sprite_direction(game);
     move_enemy_towards_target(game);
@@ -278,6 +285,37 @@ int render_game_frame(t_game *game)
     mlx_put_image_to_window(game->mlx, game->win, game->canvas.image, 0, 0);
     return (0);
 }
+
+int render_game_map(t_game *game)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (i < game->map.height)
+    {
+        j = 0;
+        while (j < game->map.width)
+        {
+            if (game->map.map[i][j] == '0')
+                render_map_tile(i,j,&game->floor,game);
+             if (game->map.map[i][j] == '1')
+                render_map_tile(i,j,&game->obstacl,game);
+            else if (game->map.map[i][j] == 'C')
+                render_map_tile(i,j,&game->collectable,game);
+            else if (game->map.map[i][j] == 'E')
+                render_map_tile(i,j,&game->portal,game);
+            else if (game->map.map[i][j] == 'P')
+                 initialize_character_position(i,j,&game->player,game);
+            else if(game->map.map[i][j] == 'X')
+                 initialize_character_position(i,j,&game->enemy[game->enemies_counter++],game);
+            j++;
+        }
+        i++;
+    }
+    return (0);
+}
+
 
 
 int draw_sprite_to_canvas(t_game *game, t_vars to_draw)
@@ -295,7 +333,8 @@ int draw_sprite_to_canvas(t_game *game, t_vars to_draw)
         while (x < SCALE)
         {
             src = to_draw.image_addr + (to_draw.frame_y * to_draw.line_size + src_x * (to_draw.bpp / 8));
-            if (*(unsigned int *)src != 0xFF000000)
+            if (*(unsigned int *)src != 0xFF000000 && *(unsigned int *)src != 0x00000000 && 
+                (*(unsigned int *)src & 0xFF000000) != 0xFF000000)  
             {
                 dst = game->canvas.image_addr + ((to_draw.y_pos + y) * game->canvas.line_size + 
                     (to_draw.x_pos + x) * (game->canvas.bpp / 8));

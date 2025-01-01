@@ -2,7 +2,13 @@
 
 int handle_player_movement_input(int keycode, t_game *game)
 {
-    game->start_game_flag = 1;
+    static int first_move = 1;
+    if(first_move)
+    {
+        game->start_game_flag = 1;
+        game->player.frame_x = 0;
+        first_move = 0;
+    }
     if(keycode == ESC)
     {
         mlx_destroy_display(game->mlx);
