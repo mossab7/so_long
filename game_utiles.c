@@ -17,3 +17,4 @@ void initialize_character_position(int i_pos,int j_pos,t_vars *to_draw,t_game *g
     to_draw->y_end_pos = to_draw->y_pos;
     draw_sprite_to_canvas(game, *to_draw);
 }
+

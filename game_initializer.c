@@ -1,51 +1,68 @@
 #include "so_long.h"
 
+static void init_image_paths(char **image_path)
+{
+    image_path[0] = "sprites/Other/Walls/wall.xpm";
+    image_path[1] = "sprites/Other/Walls/black.xpm";
+    image_path[2] = "sprites/Other/Pacdots/pacdot_food.xpm";
+    image_path[3] = "pac_frames.xpm";
+    image_path[4] = "sprites/Other/Portal/portal.xpm";
+    image_path[5] = "sprites/Ghosts/R/red_ghost_frames.xpm";
+    image_path[6] = "sprites/Ghosts/Y/red_yellow_frames.xpm";
+    image_path[7] = "sprites/Ghosts/P/red_yellow_frames.xpm";
+    image_path[8] = "sprites/Ghosts/O/red_yellow_frames.xpm";
+    image_path[9] = "sprites/Ghosts/K/red_yellow_frames.xpm";
+    image_path[10] = "sprites/Ghosts/G/red_yellow_frames.xpm";
+    image_path[11] = "sprites/Ghosts/B/red_yellow_frames.xpm";
+}
+
+static void init_image_vars(t_game *game, t_vars **images)
+{
+    images[0] = &game->obstacl;
+    images[1] = &game->floor;
+    images[2] = &game->collectable;
+    images[3] = &game->player;
+    images[4] = &game->portal;
+    images[5] = &game->enemy[0];
+    images[6] = &game->enemy[1];
+    images[7] = &game->enemy[2];
+    images[8] = &game->enemy[3];
+    images[9] = &game->enemy[4];
+    images[10] = &game->enemy[5];
+    images[11] = &game->enemy[6];
+}
+
+static int load_single_image(t_game *game, t_vars *img_var, char *path)
+{
+    img_var->image = mlx_xpm_file_to_image(game->mlx, path, 
+        &img_var->width, &img_var->height);
+    if (!img_var->image)
+        return (-1);
+
+    img_var->image_addr = mlx_get_data_addr(img_var->image, 
+        &img_var->bpp, &img_var->line_size, &img_var->endian);
+    if (!img_var->image_addr)
+        return (-1);
+    return (0);
+}
+
 int load_images(t_game *game)
 {
-    char *image_path[] = {
-        "sprites/Other/Walls/wall.xpm",
-        "sprites/Other/Walls/black.xpm",
-        "sprites/Other/Pacdots/pacdot_food.xpm",
-        "pac_frames.xpm",
-        "sprites/Other/Portal/portal.xpm",
-        "sprites/Ghosts/R/red_ghost_frames.xpm",
-        "sprites/Ghosts/Y/red_yellow_frames.xpm",
-        "sprites/Ghosts/P/red_yellow_frames.xpm",
-        "sprites/Ghosts/O/red_yellow_frames.xpm",
-        "sprites/Ghosts/K/red_yellow_frames.xpm",
-        "sprites/Ghosts/G/red_yellow_frames.xpm",
-        "sprites/Ghosts/B/red_yellow_frames.xpm"
-    };
+    char *image_path[12];
+    t_vars *images[12];
+    int i;
 
-    t_vars *images[] = {
-        &game->obstacl,
-        &game->floor,
-        &game->collectable,
-        &game->player,
-        &game->portal,
-        &game->enemy[0],
-        &game->enemy[1],
-        &game->enemy[2],
-        &game->enemy[3],
-        &game->enemy[4],
-        &game->enemy[5],
-        &game->enemy[6],
-    };
+    init_image_paths(image_path);
+    init_image_vars(game, images);
 
-    int i = 0;
-    while (i < sizeof(images)/sizeof(t_vars *))
+    i = 0;
+    while (i < 12)
     {
-        images[i]->image = mlx_xpm_file_to_image(game->mlx, image_path[i], &images[i]->width, &images[i]->height);
-        if (!images[i]->image)
-            return (-1);  
-
-        images[i]->image_addr = mlx_get_data_addr(images[i]->image, &images[i]->bpp, &images[i]->line_size, &images[i]->endian);
-        if (!images[i]->image_addr)
-            return (-1); 
-        i++; 
+        if (load_single_image(game, images[i], image_path[i]) == -1)
+            return (-1);
+        i++;
     }
-
-    return (0); 
+    return (0);
 }
 
 int render_game_map(t_game *game)
@@ -80,7 +97,7 @@ int render_game_map(t_game *game)
 
 
 
-int initialize_game_window(t_game *game)
+static int init_mlx_and_window(t_game *game)
 {
     game->mlx = mlx_init();
     if (!game->mlx)
@@ -94,7 +111,11 @@ int initialize_game_window(t_game *game)
         free(game->mlx);
         return (-1);
     }
-    
+    return (0);
+}
+
+static int init_canvas(t_game *game)
+{
     game->canvas.image = mlx_new_image(game->mlx, game->map.width * SCALE,
         game->map.height * SCALE);
     if (!game->canvas.image)
@@ -115,14 +136,30 @@ int initialize_game_window(t_game *game)
         free(game->mlx);
         return (-1);
     }
+    return (0);
+}
+
+static void setup_game_hooks(t_game *game)
+{
+    mlx_loop_hook(game->mlx, render_game_frame, game);
+    mlx_hook(game->win, 2, 1L<<0, handle_player_movement_input, game);
+}
+
+int initialize_game_window(t_game *game)
+{
+    if (init_mlx_and_window(game) == -1)
+        return (-1);
+    
+    if (init_canvas(game) == -1)
+        return (-1);
     
     if (load_images(game) == -1)
         return (-1);
+        
     if (render_game_map(game) == -1)
         return (-1);
         
-    mlx_loop_hook(game->mlx, render_game_frame, game);
-    mlx_hook(game->win,2,1L<<0, handle_player_movement_input, game);
+    setup_game_hooks(game);
     mlx_loop(game->mlx);
     return (0);
 }

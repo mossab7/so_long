@@ -12,6 +12,9 @@
 #define SCALE 32
 #define NUM_ENEMIES 7
 
+#define DEATH_FRAMES 9  // Number of death animation frames
+#define DEATH_ANIMATION_SPEED 5  // Controls animation speed
+
 typedef struct s_move {
     int dx;
     int dy;
@@ -98,6 +101,12 @@ typedef struct s_game
     int start_game_flag;
     int in_action;
     int enemies_counter;
+    //start
+        int death_animation;
+    int death_frame_counter;
+    int death_animation_tick;
+    
+    //end
 }t_game;
 
 void free_map_resources(char **map, int size);
@@ -124,4 +133,45 @@ int initialize_game_window(t_game *game);
 void initialize_character_position(int i_pos,int j_pos,t_vars *to_draw,t_game *game);
 void render_map_tile(int i_pos,int j_pos,t_vars *tile,t_game *game);
 int check_map_if_valid(t_game *game);
+void clear_enemies_from_screen(t_game *game);
+void game_over(t_game *game);
+void cleanup_game(t_game *game);
+void update_death_frame(t_game *game);
+// Sprite and animation
+void update_enemy_direction(t_vars *enemy, t_vars player);
+int update_sprite_frame(t_vars *to_draw, int frames, int *frame_flag);
+void draw_floor(t_game *game, int x, int y);
+void draw_pixel(t_game *game, t_vars *to_draw, int x, int y, int src_x);
+
+// Movement and collision
+void render_movement(t_game *game, t_vars *to_draw, int in_action);
+int is_overlapping(t_vars obj1, t_vars obj2, int overlap);
+void update_enemy_position_step(t_vars *enemy);
+int is_out_of_bounds(t_game *game, int x, int y);
+int is_wall(t_game *game, int x, int y);
+int is_enemy_collision(t_game *game, int enemy_idx, int x, int y);
+
+// Game state
+void setup_death_animation(t_game *game);
+void handle_death_frame(t_game *game);
+void cleanup_and_exit(t_game *game);
+float get_aggression_factor(t_game *game, int enemy_idx);
+
+// Enemy AI
+float evaluate_direction_bonus(t_game *game, int enemy_idx, int new_x, int new_y);
+float get_min_enemy_distance(t_game *game, int enemy_idx, int new_x, int new_y);
+void apply_random_move(t_vars *enemy, t_move *moves, int valid_moves);
+void apply_best_move(t_vars *enemy, t_move *moves, int valid_moves);
+void update_enemy_position(t_game *game, int enemy_idx, t_move *moves, int valid_moves);
+void clear_enemies(t_game *game);
+void calculate_next_position(t_game *game);
+int is_valid_move(t_game *game, int enemy_idx, int new_x, int new_y);
+float evaluate_move(t_game *game, int enemy_idx, int new_x, int new_y);
+float calculate_distance(int x1, int y1, int x2, int y2);
+// Enemy movement calculation prototypes
+void init_direction_arrays(int *dx, int *dy);
+void calculate_possible_moves(t_game *game, t_vars *enemy, int enemy_idx, 
+                            t_move *moves, int *valid_moves, const int *dx, const int *dy);
+void process_enemy_moves(t_game *game, t_vars *enemy, int enemy_idx);
+void calculate_enemy_next_position(t_game *game);
 #endif
