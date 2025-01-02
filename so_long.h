@@ -176,4 +176,7 @@ void process_enemy_moves(t_game *game, t_vars *enemy, int enemy_idx);
 void calculate_enemy_next_position(t_game *game);
 void	free_map_resources(char **map, int size);
 void destroy_image(t_vars *img_var);
+t_game *get_game_instance(void);
+void check_collision(t_game *game);
+void handle_death(t_game *game);
 #endif

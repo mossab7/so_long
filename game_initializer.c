@@ -37,7 +37,7 @@ void destroy_image(t_vars *img_var)
     t_game *game;
 
     game = get_game_instance();
-    mlx_destroy_image(game->mlx, &img_var->image);
+    mlx_destroy_image(game->mlx, (void *)&img_var->image);
 }
 
 static int load_single_image(t_game *game, t_vars *img_var, char *path)

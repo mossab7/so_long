@@ -11,7 +11,7 @@ t_stack	*create_stack(int capacity)
     return (stack);
 }
 
-static int	init_search(char ***visited, t_stack **stack, char **tab, t_point size)
+static int	init_search(char ***visited, t_stack **stack, t_point size)
 {
     int	i;
     int	j;
@@ -205,8 +205,7 @@ int	is_empty(t_stack *stack)
     return (stack->top == -1);
 }
 
-char	**search_for_path(char **tab, t_point size, t_point begin,
-        const char *obstacles)
+char	**search_for_path(char **tab, t_point size, t_point begin)
 {
     char	**visited;
     t_stack	*stack;
@@ -214,7 +213,7 @@ char	**search_for_path(char **tab, t_point size, t_point begin,
     t_point	cur;
     t_point	moves[4];
 
-    if (!init_search(&visited, &stack, tab, size))
+    if (!init_search(&visited, &stack, size))
         return (NULL);
     push(stack, begin);
     while (!is_empty(stack))
@@ -276,7 +275,7 @@ int	check_path(t_game *game)
     get_player_and_exit_pos(game);
     visited = search_for_path(game->map.map,
             (t_point){game->map.width, game->map.height},
-            (t_point){game->player.x_pos, game->player.y_pos}, "1X");
+            (t_point){game->player.x_pos, game->player.y_pos});
     if (!visited)
         return (-1);
     result = visited[game->portal.y_pos][game->portal.x_pos] ? 0 : -1;
