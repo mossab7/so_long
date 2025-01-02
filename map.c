@@ -52,10 +52,10 @@ static int	is_valid_pos(t_point pos, t_point size, char **tab, char **visited)
 
 static void	set_moves(t_point moves[4])
 {
-    moves[0] = (t_point){0, -1};  // up
-    moves[1] = (t_point){1, 0};   // right
-    moves[2] = (t_point){0, 1};   // down
-    moves[3] = (t_point){-1, 0};  // left
+    moves[0] = (t_point){0, -1};
+    moves[1] = (t_point){1, 0};
+    moves[2] = (t_point){0, 1};   
+    moves[3] = (t_point){-1, 0};  
 }
 
 static void	free_stack(t_stack *stack)

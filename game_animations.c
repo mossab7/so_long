@@ -296,9 +296,22 @@ void handle_death(t_game *game)
 
 void cleanup_and_exit(t_game *game)
 {
-    mlx_destroy_window(game->mlx, game->win);
-    mlx_destroy_display(game->mlx);
-    free(game->mlx);
+    if (!game)
+        exit(1);
+
+    if (get_memory_tracker())
+        cleanup_memory_tracker(get_memory_tracker());
+
+    free_map_resources(&game->map, game->map.height);
+
+    if (game->mlx)
+    {
+        if (game->win)
+            mlx_destroy_window(game->mlx, game->win);
+        mlx_destroy_display(game->mlx);
+        free(game->mlx);
+    }
+
     exit(0);
 }
 

@@ -33,12 +33,11 @@ typedef struct stored_s
 typedef struct s_alloc_record {
     void *ptr;
     void (*free_func)(void *);
-    size_t size;
     struct s_alloc_record *next;
 } t_alloc_record;
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4096
+#  define BUFFER_SIZE 1
 # endif
 
 # ifndef OPEN_MAX
@@ -94,10 +93,10 @@ char	*free_stored(char **content);
 size_t	read_to_buffer(t_stored *stored, int fd);
 void	ft_strmerge(char **dest, char *src);
 char	*get_next_line(int fd);
-t_alloc_record **get_instance(void);
-t_alloc_record *create_new_node(void *ptr, void (*f)(void *), size_t size);
-void add_allocation_to_list(t_alloc_record **alloc_record, t_alloc_record *new_node);
-void *track_alloc(size_t size);
-void check_alloc(void *ptr);
-void free_alloc(t_alloc_record **alloc_record);
+t_alloc_record **get_memory_tracker(void);
+t_alloc_record *create_memory_record(void *ptr, void (*deallocator)(void *));
+void register_memory_allocation(t_alloc_record **memory_records, t_alloc_record *new_record);
+void handle_allocation_failure(void *ptr);
+void *allocate_tracked_memory(size_t size);
+void cleanup_memory_tracker(t_alloc_record **memory_records);
 #endif

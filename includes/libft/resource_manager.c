@@ -2,69 +2,72 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-t_alloc_record **get_instance(void)
+t_alloc_record **get_memory_tracker(void)
 {
-    static t_alloc_record *alloc_record;
-    return (&alloc_record);
+    static t_alloc_record *memory_records;
+    return (&memory_records);
 }
 
-t_alloc_record *create_new_node(void *ptr, void (*f)(void *), size_t size)
+t_alloc_record *create_memory_record(void *ptr, void (*deallocator)(void *))
 {
-    t_alloc_record *new_node;
+    t_alloc_record *new_record;
 
-    new_node = malloc(sizeof(t_alloc_record));
-    if (!new_node)
+    new_record = malloc(sizeof(t_alloc_record));
+    if (!new_record)
         return (NULL);
-    new_node->ptr = ptr;
-    new_node->free_func = f;
-    new_node->size = size;
-    new_node->next = NULL;
-    return (new_node);
+    new_record->ptr = ptr;
+    new_record->free_func = deallocator;
+    new_record->next = NULL;
+    return (new_record);
 }
 
-void add_allocation_to_list(t_alloc_record **alloc_record, t_alloc_record *new_node)
+void register_memory_allocation(t_alloc_record **memory_records, t_alloc_record *new_record)
 {
     t_alloc_record *current;
 
-    if (!new_node)
+    if (!new_record)
         return;
-    if (!*alloc_record)
+    if (!*memory_records)
     {
-        *alloc_record = new_node;
+        *memory_records = new_record;
         return;
     }
-    current = *alloc_record;
+    current = *memory_records;
     while (current->next)
         current = current->next;
-    current->next = new_node;
+    current->next = new_record;
 }
 
-void check_alloc(void *ptr)
+void handle_allocation_failure(void *ptr)
 {
     if (ptr == NULL)
     {
-        free_alloc(get_instance());
-        printf("Allocation failed\n");
-        exit(1);
+        cleanup_memory_tracker(get_memory_tracker());
+        fprintf(stderr, "Fatal: Memory allocation failed\n");
+        exit(EXIT_FAILURE);
     }
 }
 
-void *track_alloc(size_t size)
+void *allocate_tracked_memory(size_t size)
 {
     void *ptr;
 
-    ptr = ft_calloc(size,1);
-    check_alloc(ptr);
-    add_allocation_to_list(get_instance(), create_new_node(ptr, free, size));
+    ptr = ft_calloc(size, 1);
+    handle_allocation_failure(ptr);
+    register_memory_allocation(get_memory_tracker(), 
+                             create_memory_record(ptr, free));
     return (ptr);
 }
 
-void free_alloc(t_alloc_record **alloc_record)
+void cleanup_memory_tracker(t_alloc_record **memory_records)
 {
     t_alloc_record *current;
     t_alloc_record *next;
 
-    current = *alloc_record;
+    if (!memory_records || !*memory_records)
+        return;
+
+    current = *memory_records;
     while (current != NULL)
     {
         next = current->next;
@@ -73,6 +76,5 @@ void free_alloc(t_alloc_record **alloc_record)
         free(current);
         current = next;
     }
-    *alloc_record = NULL;
+    *memory_records = NULL;
 }
-

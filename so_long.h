@@ -174,4 +174,5 @@ void calculate_possible_moves(t_game *game, t_vars *enemy, int enemy_idx,
                             t_move *moves, int *valid_moves, const int *dx, const int *dy);
 void process_enemy_moves(t_game *game, t_vars *enemy, int enemy_idx);
 void calculate_enemy_next_position(t_game *game);
+void	free_map_resources(char **map, int size);
 #endif

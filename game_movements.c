@@ -9,11 +9,18 @@ int handle_player_movement_input(int keycode, t_game *game)
         game->player.frame_x = 0;
         first_move = 0;
     }
-    if(keycode == ESC)
-    {
-        mlx_destroy_display(game->mlx);
-        exit(1);
-    }
+
+if(keycode == ESC)
+{
+    mlx_clear_window(game->mlx, game->win);
+    mlx_destroy_image(game->mlx, game->canvas.image); 
+    cleanup_memory_tracker(get_memory_tracker());      
+    mlx_destroy_window(game->mlx, game->win);          
+    mlx_destroy_display(game->mlx);                    
+    free(game->mlx);
+    exit(0);
+}
+
     if(keycode == UP || keycode == 'w' || keycode == 'W')
     {
         game->player.new_direction = UP;

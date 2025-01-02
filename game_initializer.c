@@ -43,6 +43,9 @@ static int load_single_image(t_game *game, t_vars *img_var, char *path)
         &img_var->bpp, &img_var->line_size, &img_var->endian);
     if (!img_var->image_addr)
         return (-1);
+
+    register_memory_allocation(get_memory_tracker(), 
+        create_memory_record(img_var->image, mlx_destroy_image));
     return (0);
 }
 
