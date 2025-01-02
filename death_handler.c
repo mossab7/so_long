@@ -16,7 +16,6 @@ void setup_death_animation(t_game *game)
     game->player.frame_x = 0;
 }
 
-
 void handle_death_frame(t_game *game)
 {
     draw_floor(game, game->player.x_pos, game->player.y_pos);
@@ -25,7 +24,6 @@ void handle_death_frame(t_game *game)
     draw_sprite_to_canvas(game, game->player);
     usleep(100000);
 }
-
 
 void handle_death(t_game *game)
 {
@@ -37,7 +35,7 @@ void handle_death(t_game *game)
     {
         game->death_animation_tick = 0;
         handle_death_frame(game);
-        
+        printf("Death frame: %d\n", game->death_frame_counter);
         if(game->death_frame_counter >= DEATH_FRAMES)
             cleanup_and_exit(game);
     }
@@ -45,21 +43,12 @@ void handle_death(t_game *game)
 
 void cleanup_and_exit(t_game *game)
 {
-    if (!game)
-        exit(1);
-
-    if (get_memory_tracker())
+        mlx_clear_window(game->mlx, game->win);
+        mlx_destroy_image(game->mlx, game->canvas.image); 
         cleanup_memory_tracker(get_memory_tracker());
-
-    free_map_resources(game->map.map, game->map.height);
-
-    if (game->mlx)
-    {
-        if (game->win)
-            mlx_destroy_window(game->mlx, game->win);
-        mlx_destroy_display(game->mlx);
+        free_map_resources(game->map.map, game->map.height);     
+        mlx_destroy_window(game->mlx, game->win);          
+        mlx_destroy_display(game->mlx);                    
         free(game->mlx);
-    }
-
-    exit(0);
+        exit(0);
 }

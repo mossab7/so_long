@@ -12,16 +12,8 @@ int handle_player_movement_input(int keycode, t_game *game)
 
     if(keycode == ESC)
     {
-        mlx_clear_window(game->mlx, game->win);
-        mlx_destroy_image(game->mlx, game->canvas.image); 
-        cleanup_memory_tracker(get_memory_tracker());
-        free_map_resources(game->map.map, game->map.height);     
-        mlx_destroy_window(game->mlx, game->win);          
-        mlx_destroy_display(game->mlx);                    
-        free(game->mlx);
-        exit(0);
+        cleanup_and_exit(game);
     }
-
     if(keycode == UP || keycode == 'w' || keycode == 'W')
     {
         game->player.new_direction = UP;
@@ -58,6 +50,10 @@ void calculate_next_position(t_game *game)
             game->player.x_end_pos = game->player.x_pos - SCALE;
         else if(game->player.direction == RIGHT && game->map.map[game->player.y_pos/SCALE][(game->player.x_pos + SCALE)/SCALE] != '1')
             game->player.x_end_pos = game->player.x_pos + SCALE;
+        if(game->in_action == 1)
+            game->move_counter++;
+       // printf("Move counter: %d\n", game->move_counter);
+
     }
 }
 
@@ -85,5 +81,8 @@ void move_player_towards_target(t_game *game)
         game->player.x_pos--;
         game->in_action = 1;
     }
-    calculate_next_position(game);
+    if(game->player.x_pos == game->player.x_end_pos && game->player.y_pos == game->player.y_end_pos && game->start_game_flag == 1)
+    {
+        calculate_next_position(game);
+    }
 }

@@ -12,9 +12,8 @@
 #define SCALE 32
 #define NUM_ENEMIES 7
 
-#define DEATH_FRAMES 9  // Number of death animation frames
-#define DEATH_ANIMATION_SPEED 5  // Controls animation speed
-
+#define DEATH_FRAMES 9
+#define DEATH_ANIMATION_SPEED 5
 typedef struct s_move {
     int dx;
     int dy;
@@ -101,12 +100,12 @@ typedef struct s_game
     int start_game_flag;
     int in_action;
     int enemies_counter;
-    //start
-        int death_animation;
+    int death_animation;
     int death_frame_counter;
     int death_animation_tick;
+    int collectable_counter;
+    int move_counter;
     
-    //end
 }t_game;
 
 void free_map_resources(char **map, int size);

@@ -257,6 +257,10 @@ char	**search_for_path(char **tab, t_point size, t_point begin)
                 game->portal.x_pos = j;
                 game->portal.y_pos = i;
             }
+            else if(game->map.map[i][j] == 'C')
+            {
+                game->collectable_counter++;            
+            }
             j++;
         }
         i++;

@@ -14,6 +14,16 @@ void check_collision(t_game *game)
         }
         i++;
     }
+    if(game->map.map[game->player.y_end_pos / SCALE][game->player.x_end_pos / SCALE] == 'C')
+    {
+        game->collectable_counter--;
+        game->map.map[game->player.y_end_pos / SCALE][game->player.x_end_pos / SCALE] = '0';
+    }
+    if(is_overlapping(game->player, game->portal, overlap))
+    {
+        if(game->collectable_counter == 0)
+            cleanup_and_exit(game);
+    }
 }
 
 int is_overlapping(t_vars obj1, t_vars obj2, int overlap)

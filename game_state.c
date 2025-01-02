@@ -16,6 +16,9 @@ void update_game_state(t_game *game)
     move_player_towards_target(game);
     update_enemy_sprite_direction(game);
     move_enemy_towards_target(game);
+    //tmp:
+    draw_sprite_to_canvas(game, game->portal);
+    draw_sprite_to_canvas(game, game->player);
     check_collision(game);
 }
 
