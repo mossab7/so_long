@@ -175,4 +175,5 @@ void calculate_possible_moves(t_game *game, t_vars *enemy, int enemy_idx,
 void process_enemy_moves(t_game *game, t_vars *enemy, int enemy_idx);
 void calculate_enemy_next_position(t_game *game);
 void	free_map_resources(char **map, int size);
+void destroy_image(t_vars *img_var);
 #endif

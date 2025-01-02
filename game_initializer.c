@@ -32,6 +32,14 @@ static void init_image_vars(t_game *game, t_vars **images)
     images[11] = &game->enemy[6];
 }
 
+void destroy_image(t_vars *img_var)
+{
+    t_game *game;
+
+    game = get_game_instance();
+    mlx_destroy_image(game->mlx, &img_var->image);
+}
+
 static int load_single_image(t_game *game, t_vars *img_var, char *path)
 {
     img_var->image = mlx_xpm_file_to_image(game->mlx, path, 
@@ -45,7 +53,7 @@ static int load_single_image(t_game *game, t_vars *img_var, char *path)
         return (-1);
 
     register_memory_allocation(get_memory_tracker(), 
-        create_memory_record(img_var->image, mlx_destroy_image));
+        create_memory_record(img_var->image, destroy_image));
     return (0);
 }
 
@@ -147,7 +155,6 @@ static void setup_game_hooks(t_game *game)
     mlx_loop_hook(game->mlx, render_game_frame, game);
     mlx_hook(game->win, 2, 1L<<0, handle_player_movement_input, game);
 }
-
 int initialize_game_window(t_game *game)
 {
     if (init_mlx_and_window(game) == -1)

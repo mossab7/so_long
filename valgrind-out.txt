@@ -1,795 +1,154 @@
-==3227245== Memcheck, a memory error detector
-==3227245== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==3227245== Using Valgrind-3.18.1-42b08ed5bd-20211015 and LibVEX; rerun with -h for copyright info
-==3227245== Command: ./so_long maps/google.ber
-==3227245== Parent PID: 3227151
-==3227245== 
---3227245-- 
---3227245-- Valgrind options:
---3227245--    --leak-check=full
---3227245--    --show-leak-kinds=all
---3227245--    --track-origins=yes
---3227245--    --verbose
---3227245--    --log-file=valgrind-out.txt
---3227245-- Contents of /proc/version:
---3227245--   Linux version 5.15.0-127-generic (buildd@lcy02-amd64-019) (gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #137-Ubuntu SMP Fri Nov 8 15:21:01 UTC 2024
---3227245-- 
---3227245-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand-rdseed
---3227245-- Page sizes: currently 4096, max supported 4096
---3227245-- Valgrind library directory: /usr/libexec/valgrind
---3227245-- Reading syms from /goinfre/mbouhia/game/so_long
---3227245-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
---3227245--   Considering /usr/lib/debug/.build-id/41/86944c50f8a32b47d74931e3f512b811813b64.debug ..
---3227245--   .. build-id is valid
---3227245-- Reading syms from /usr/libexec/valgrind/memcheck-amd64-linux
---3227245--    object doesn't have a symbol table
---3227245--    object doesn't have a dynamic symbol table
---3227245-- Scheduler: using generic scheduler lock implementation.
---3227245-- Reading suppressions file: /usr/libexec/valgrind/default.supp
-==3227245== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-3227245-by-mbouhia-on-???
-==3227245== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-3227245-by-mbouhia-on-???
-==3227245== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-3227245-by-mbouhia-on-???
-==3227245== 
-==3227245== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==3227245== don't want to do, unless you know exactly what you're doing,
-==3227245== or are doing some strange experiment):
-==3227245==   /usr/bin/vgdb --pid=3227245 ...command...
-==3227245== 
-==3227245== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==3227245==   /path/to/gdb ./so_long
-==3227245== and then give GDB the following command
-==3227245==   target remote | /usr/bin/vgdb --pid=3227245
-==3227245== --pid is optional if only one valgrind process is running
-==3227245== 
---3227245-- REDIR: 0x402aa40 (ld-linux-x86-64.so.2:strlen) redirected to 0x580bcec2 (???)
---3227245-- REDIR: 0x402a810 (ld-linux-x86-64.so.2:index) redirected to 0x580bcedc (???)
---3227245-- Reading syms from /usr/libexec/valgrind/vgpreload_core-amd64-linux.so
---3227245--    object doesn't have a symbol table
---3227245-- Reading syms from /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
---3227245--    object doesn't have a symbol table
-==3227245== WARNING: new redirection conflicts with existing -- ignoring it
---3227245--     old: 0x0402aa40 (strlen              ) R-> (0000.0) 0x580bcec2 ???
---3227245--     new: 0x0402aa40 (strlen              ) R-> (2007.0) 0x0484ee30 strlen
---3227245-- REDIR: 0x4027220 (ld-linux-x86-64.so.2:strcmp) redirected to 0x484fcd0 (strcmp)
---3227245-- REDIR: 0x402afa0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4853840 (mempcpy)
---3227245-- Reading syms from /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
---3227245--    object doesn't have a symbol table
---3227245-- Reading syms from /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
---3227245--    object doesn't have a symbol table
---3227245-- Reading syms from /usr/lib/x86_64-linux-gnu/libm.so.6
---3227245--   Considering /usr/lib/debug/.build-id/a5/08ec5d8bf12fb7fd08204e0f87518e5cd0b102.debug ..
---3227245--   .. build-id is valid
---3227245-- Reading syms from /usr/lib/x86_64-linux-gnu/libz.so.1.2.11
---3227245--    object doesn't have a symbol table
---3227245-- Reading syms from /usr/lib/x86_64-linux-gnu/libc.so.6
---3227245--   Considering /usr/lib/debug/.build-id/49/0fef8403240c91833978d494d39e537409b92e.debug ..
---3227245--   .. build-id is valid
-==3227245== WARNING: new redirection conflicts with existing -- ignoring it
---3227245--     old: 0x04b70c60 (memalign            ) R-> (1011.0) 0x0484e080 memalign
---3227245--     new: 0x04b70c60 (memalign            ) R-> (1017.0) 0x0484e050 aligned_alloc
-==3227245== WARNING: new redirection conflicts with existing -- ignoring it
---3227245--     old: 0x04b70c60 (memalign            ) R-> (1011.0) 0x0484e080 memalign
---3227245--     new: 0x04b70c60 (memalign            ) R-> (1017.0) 0x0484e020 aligned_alloc
-==3227245== WARNING: new redirection conflicts with existing -- ignoring it
---3227245--     old: 0x04b70c60 (memalign            ) R-> (1011.0) 0x0484e080 memalign
---3227245--     new: 0x04b70c60 (memalign            ) R-> (1017.0) 0x0484e050 aligned_alloc
-==3227245== WARNING: new redirection conflicts with existing -- ignoring it
---3227245--     old: 0x04b70c60 (memalign            ) R-> (1011.0) 0x0484e080 memalign
---3227245--     new: 0x04b70c60 (memalign            ) R-> (1017.0) 0x0484e020 aligned_alloc
---3227245-- Reading syms from /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
---3227245--    object doesn't have a symbol table
---3227245-- Reading syms from /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
---3227245--    object doesn't have a symbol table
---3227245-- Reading syms from /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
---3227245--    object doesn't have a symbol table
---3227245-- Reading syms from /usr/lib/x86_64-linux-gnu/libbsd.so.0.11.5
---3227245--    object doesn't have a symbol table
---3227245-- Reading syms from /usr/lib/x86_64-linux-gnu/libmd.so.0.0.5
---3227245--    object doesn't have a symbol table
---3227245-- REDIR: 0x4b73720 (libc.so.6:strnlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b739e0 (libc.so.6:strpbrk) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b732e0 (libc.so.6:strcmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b91cd0 (libc.so.6:wcsnlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b746d0 (libc.so.6:memset) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b90540 (libc.so.6:wcslen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b74c10 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b90370 (libc.so.6:wcschr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b73260 (libc.so.6:index) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b73960 (libc.so.6:rindex) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b745a0 (libc.so.6:memmove) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
-==3227245== Preferring higher priority redirection:
---3227245--     old: 0x04c6b7c0 (__memcpy_avx_unalign) R-> (2018.0) 0x04850f90 __memcpy_avx_unaligned_erms
---3227245--     new: 0x04c6b7c0 (__memcpy_avx_unalign) R-> (2018.1) 0x04852880 memmove
---3227245-- REDIR: 0x4b903f0 (libc.so.6:wcscmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b749e0 (libc.so.6:stpncpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b909b0 (libc.so.6:wmemchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b73830 (libc.so.6:strncmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b74a70 (libc.so.6:strcasecmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b73420 (libc.so.6:strcspn) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b90470 (libc.so.6:wcscpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b731d0 (libc.so.6:strcat) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b74b60 (libc.so.6:strncasecmp_l) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b74480 (libc.so.6:bcmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b7c570 (libc.so.6:memrchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b76010 (libc.so.6:strchrnul) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b73390 (libc.so.6:strcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b74b10 (libc.so.6:strcasecmp_l) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b736a0 (libc.so.6:strlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b738d0 (libc.so.6:strncpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b74950 (libc.so.6:stpcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b743f0 (libc.so.6:memchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b73b00 (libc.so.6:strspn) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b747d0 (libc.so.6:mempcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b74ac0 (libc.so.6:strncasecmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4b75f80 (libc.so.6:rawmemchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
---3227245-- REDIR: 0x4c68610 (libc.so.6:__strrchr_avx2) redirected to 0x484e810 (rindex)
---3227245-- REDIR: 0x4b700a0 (libc.so.6:malloc) redirected to 0x4848820 (malloc)
---3227245-- REDIR: 0x4b703e0 (libc.so.6:free) redirected to 0x484b210 (free)
---3227245-- REDIR: 0x4c687e0 (libc.so.6:__strlen_avx2) redirected to 0x484ed10 (strlen)
---3227245-- REDIR: 0x4c63d80 (libc.so.6:__strncmp_avx2) redirected to 0x484f3e0 (strncmp)
---3227245-- REDIR: 0x4b71520 (libc.so.6:calloc) redirected to 0x484d9d0 (calloc)
---3227245-- REDIR: 0x4c6b7c0 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x4852880 (memmove)
---3227245-- REDIR: 0x4c68400 (libc.so.6:__strchrnul_avx2) redirected to 0x4853330 (strchrnul)
---3227245-- REDIR: 0x4bff7e0 (libc.so.6:__strcpy_chk) redirected to 0x48533a0 (__strcpy_chk)
---3227245-- REDIR: 0x4b73fc0 (libc.so.6:__GI_strstr) redirected to 0x4853ae0 (__strstr_sse2)
---3227245-- REDIR: 0x4c64a80 (libc.so.6:__memcmp_avx2_movbe) redirected to 0x4852010 (bcmp)
---3227245-- REDIR: 0x4c6bf80 (libc.so.6:__memset_avx2_unaligned_erms) redirected to 0x4852770 (memset)
---3227245-- REDIR: 0x4c6b780 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4853440 (mempcpy)
---3227245-- REDIR: 0x4b70740 (libc.so.6:realloc) redirected to 0x484dc50 (realloc)
---3227245-- REDIR: 0x4c6a040 (libc.so.6:__strncpy_avx2) redirected to 0x484efe0 (strncpy)
---3227245-- REDIR: 0x4c63940 (libc.so.6:__strcmp_avx2) redirected to 0x484fbd0 (strcmp)
---3227245-- REDIR: 0x4c69cb0 (libc.so.6:__strcpy_avx2) redirected to 0x484ee60 (strcpy)
---3227245-- REDIR: 0x4c65130 (libc.so.6:__strcasecmp_avx) redirected to 0x484f560 (strcasecmp)
-==3227245== Invalid read of size 4
-==3227245==    at 0x408680: mlx_destroy_image (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406439: cleanup_memory_tracker (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x405617: handle_player_movement_input (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406D15: mlx_loop (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A29: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245==  Address 0x28 is not stack'd, malloc'd or (recently) free'd
-==3227245== 
-==3227245== 
-==3227245== Process terminating with default action of signal 11 (SIGSEGV)
-==3227245==  Access not within mapped region at address 0x28
-==3227245==    at 0x408680: mlx_destroy_image (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406439: cleanup_memory_tracker (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x405617: handle_player_movement_input (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406D15: mlx_loop (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A29: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245==  If you believe this happened as a result of a stack
-==3227245==  overflow in your program's main thread (unlikely but
-==3227245==  possible), you can try to increase the size of the
-==3227245==  main thread stack using the --main-stacksize= flag.
-==3227245==  The main thread stack size used in this run was 8388608.
-==3227245== 
-==3227245== HEAP SUMMARY:
-==3227245==     in use at exit: 106,630 bytes in 162 blocks
-==3227245==   total heap usage: 7,579 allocs, 7,417 frees, 2,403,503 bytes allocated
-==3227245== 
-==3227245== Searching for pointers to 162 not-freed blocks
-==3227245== Checked 733,128 bytes
-==3227245== 
-==3227245== 3 bytes in 1 blocks are still reachable in loss record 1 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x4B7358E: strdup (strdup.c:42)
-==3227245==    by 0x48B5B45: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 8 bytes in 1 blocks are still reachable in loss record 2 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x4B7358E: strdup (strdup.c:42)
-==3227245==    by 0x48B29AE: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4877820: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x487C9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x406753: mlx_int_deal_shm (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4069D1: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 8 bytes in 1 blocks are still reachable in loss record 3 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x4875B34: ??? (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x48779DF: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x487C9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x406753: mlx_int_deal_shm (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4069D1: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 10 bytes in 1 blocks are still reachable in loss record 4 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x4B7358E: strdup (strdup.c:42)
-==3227245==    by 0x48B29AE: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x491C213: XkbUseExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48B66A8: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 16 bytes in 1 blocks are still reachable in loss record 5 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x4D032EE: xcb_connect_to_fd (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x4D03E6B: xcb_connect_to_display_with_auth_info (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x48C5EE9: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48B5B68: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 21 bytes in 1 blocks are still reachable in loss record 6 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48B603E: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 24 bytes in 1 blocks are still reachable in loss record 7 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x4877041: XextCreateExtension (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x48774CC: ??? (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x48779C8: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x487C9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x406753: mlx_int_deal_shm (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4069D1: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 24 bytes in 1 blocks are still reachable in loss record 8 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x4B7358E: strdup (strdup.c:42)
-==3227245==    by 0x48B29AE: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4877820: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x487750A: ??? (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x48779C8: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x487C9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x406753: mlx_int_deal_shm (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4069D1: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 24 bytes in 1 blocks are still reachable in loss record 9 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48779F5: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x487C9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x406753: mlx_int_deal_shm (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4069D1: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 24 bytes in 1 blocks are still reachable in loss record 10 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48C3A65: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CC2C6: _XReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CC77E: XSync (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406CA7: mlx_loop (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A29: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 29 bytes in 1 blocks are still reachable in loss record 11 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48AF0CD: _XUpdateAtomCache (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48B1929: XInternAtom (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4069C2: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 32 bytes in 1 blocks are still reachable in loss record 12 of 59
-==3227245==    at 0x48487A9: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x4D0715E: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x4D07237: xcb_get_extension_data (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x4D072EE: xcb_prefetch_maximum_request_length (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x4D07364: xcb_get_maximum_request_length (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x48B652B: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 32 bytes in 1 blocks are still reachable in loss record 13 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x4D001B7: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x4D00A08: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x4D00EB0: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x4D01E44: xcb_wait_for_reply (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x4D07292: xcb_get_extension_data (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x4D072EE: xcb_prefetch_maximum_request_length (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x4D07364: xcb_get_maximum_request_length (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x48B652B: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 32 bytes in 1 blocks are still reachable in loss record 14 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48777FF: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x487C9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x406753: mlx_int_deal_shm (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4069D1: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 32 bytes in 1 blocks are still reachable in loss record 15 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48777FF: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x487750A: ??? (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x48779C8: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x487C9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x406753: mlx_int_deal_shm (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4069D1: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 33 bytes in 1 blocks are still reachable in loss record 16 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48AF0CD: _XUpdateAtomCache (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48B1929: XInternAtom (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4069AB: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 40 bytes in 1 blocks are still reachable in loss record 17 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48C61F1: _XPollfdCacheInit (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48B5E71: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 48 bytes in 1 blocks are still reachable in loss record 18 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48C5E71: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48B5B68: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 48 bytes in 1 blocks are still reachable in loss record 19 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48C5E87: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48B5B68: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 48 bytes in 1 blocks are still reachable in loss record 20 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x49144C0: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4914542: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x49148AF: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4084F7: mlx_int_param_KeyPress (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406D15: mlx_loop (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A29: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 60 bytes in 1 blocks are still reachable in loss record 21 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x405AC9: ft_strdup (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402962: ft_realloc (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402A37: process_map_line (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402B19: read_map (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4025D9: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 72 bytes in 1 blocks are still reachable in loss record 22 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48B5F20: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 72 bytes in 1 blocks are still reachable in loss record 23 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x49144A4: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4914542: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x49148AF: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4084F7: mlx_int_param_KeyPress (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406D15: mlx_loop (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A29: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 112 bytes in 1 blocks are still reachable in loss record 24 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48C5D72: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48B5B68: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 112 bytes in 1 blocks are still reachable in loss record 25 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48B6200: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 128 bytes in 1 blocks are still reachable in loss record 26 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48B612E: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 128 bytes in 1 blocks are still reachable in loss record 27 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48B299E: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x491C213: XkbUseExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48B66A8: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 128 bytes in 1 blocks are still reachable in loss record 28 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48B299E: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4877820: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x487C9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x406753: mlx_int_deal_shm (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4069D1: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 128 bytes in 1 blocks are still reachable in loss record 29 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48B299E: XInitExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4877820: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x487750A: ??? (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x48779C8: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x487C9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x406753: mlx_int_deal_shm (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4069D1: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 136 bytes in 1 blocks are still reachable in loss record 30 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x4068FF: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 144 bytes in 1 blocks are still reachable in loss record 31 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x4027CC: allocate_new_array (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402916: ft_realloc (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402A37: process_map_line (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402B19: read_map (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4025D9: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 150 bytes in 1 blocks are still reachable in loss record 32 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48B6710: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 152 bytes in 1 blocks are still reachable in loss record 33 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x491C40E: XkbUseExtension (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48B66A8: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 160 bytes in 1 blocks are still reachable in loss record 34 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48A49EF: XCreateGC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48B65A4: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 160 bytes in 1 blocks are still reachable in loss record 35 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48A49EF: XCreateGC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406B4E: mlx_new_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403AA9: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 168 bytes in 1 blocks are still reachable in loss record 36 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48B60B2: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 208 bytes in 1 blocks are still reachable in loss record 37 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x4875AE9: ??? (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x48779DF: XextAddDisplay (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x487C9E2: XShmQueryVersion (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x406753: mlx_int_deal_shm (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4069D1: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 208 bytes in 1 blocks are still reachable in loss record 38 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48C7FAE: _XEnq (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CABB6: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CBEC0: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CC205: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406E55: mlx_int_wait_first_expose (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406B8D: mlx_new_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403AA9: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 256 bytes in 1 blocks are still reachable in loss record 39 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x491955D: XkbAllocClientMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x49140DE: _XkbReadGetMapReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x491441E: XkbGetUpdatedMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x49144F4: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4914542: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x49148AF: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4084F7: mlx_int_param_KeyPress (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406D15: mlx_loop (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A29: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 288 bytes in 12 blocks are still reachable in loss record 40 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x406299: create_memory_record (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403771: load_single_image (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403482: load_images (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039E0: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 344 bytes in 6 blocks are still reachable in loss record 41 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x49138F5: _XkbReadGetMapReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x491441E: XkbGetUpdatedMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x49144F4: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4914542: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x49148AF: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4084F7: mlx_int_param_KeyPress (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406D15: mlx_loop (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A29: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 512 bytes in 1 blocks are still reachable in loss record 42 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48B146A: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48B184E: XInternAtom (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4069AB: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 624 bytes in 3 blocks are still reachable in loss record 43 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48C7FAE: _XEnq (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CABB6: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CBEC0: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CC1D0: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406E55: mlx_int_wait_first_expose (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406B8D: mlx_new_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403AA9: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 832 bytes in 4 blocks are still reachable in loss record 44 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48C7FAE: _XEnq (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CABB6: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CBF01: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CC205: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406E55: mlx_int_wait_first_expose (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406B8D: mlx_new_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403AA9: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 832 bytes in 4 blocks are still reachable in loss record 45 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48C7FAE: _XEnq (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CABB6: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CC40C: _XReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CC77E: XSync (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4070A7: mlx_int_new_xshm_image (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4072E2: mlx_new_image (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403B2C: init_canvas (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039C2: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 936 bytes in 1 blocks are still reachable in loss record 46 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x406AB0: mlx_new_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403AA9: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 960 bytes in 16 blocks are still reachable in loss record 47 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x405AC9: ft_strdup (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x40286B: copy_existing_elements (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402944: ft_realloc (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402A37: process_map_line (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402B19: read_map (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4025D9: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 1,056 bytes in 12 blocks are still reachable in loss record 48 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x406FBB: mlx_int_new_xshm_image (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4072E2: mlx_new_image (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x407BE7: mlx_int_parse_xpm (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x408021: mlx_xpm_file_to_image (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4036E4: load_single_image (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403482: load_images (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039E0: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 1,120 bytes in 1 blocks are still reachable in loss record 49 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x4919619: XkbAllocClientMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4913EB7: _XkbReadGetMapReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x491441E: XkbGetUpdatedMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x49144F4: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4914542: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x49148AF: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4084F7: mlx_int_param_KeyPress (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406D15: mlx_loop (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A29: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 1,632 bytes in 12 blocks are still reachable in loss record 50 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48760C3: XShmCreateImage (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==3227245==    by 0x406FE6: mlx_int_new_xshm_image (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4072E2: mlx_new_image (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x407BE7: mlx_int_parse_xpm (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x408021: mlx_xpm_file_to_image (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4036E4: load_single_image (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403482: load_images (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039E0: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 2,016 bytes in 27 blocks are still reachable in loss record 51 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x49137DD: _XkbReadGetMapReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x491441E: XkbGetUpdatedMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x49144F4: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4914542: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x49148AF: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4084F7: mlx_int_param_KeyPress (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406D15: mlx_loop (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A29: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 2,048 bytes in 1 blocks are still reachable in loss record 52 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x4913914: _XkbReadGetMapReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x491441E: XkbGetUpdatedMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x49144F4: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4914542: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x49148AF: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4084F7: mlx_int_param_KeyPress (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406D15: mlx_loop (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A29: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 3,328 bytes in 16 blocks are still reachable in loss record 53 of 59
-==3227245==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48C7FAE: _XEnq (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CABB6: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CBF01: _XReadEvents (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48CC1D0: XWindowEvent (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406E55: mlx_int_wait_first_expose (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406B8D: mlx_new_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403AA9: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 4,096 bytes in 1 blocks are still reachable in loss record 54 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x491413E: _XkbReadGetMapReply (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x491441E: XkbGetUpdatedMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x49144F4: XkbGetMap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4914542: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x49148AF: XkbKeycodeToKeysym (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x4084F7: mlx_int_param_KeyPress (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406D15: mlx_loop (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A29: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 4,704 bytes in 1 blocks are still reachable in loss record 55 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48B5B31: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 12,308 bytes in 1 blocks are still reachable in loss record 56 of 59
-==3227245==    at 0x484DCD3: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x4D034FB: xcb_connect_to_fd (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x4D03E6B: xcb_connect_to_display_with_auth_info (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x48C5EE9: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48B5B68: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 16,384 bytes in 1 blocks are still reachable in loss record 57 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48B5EBE: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 21,168 bytes in 1 blocks are still reachable in loss record 58 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x4D03204: xcb_connect_to_fd (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x4D03E6B: xcb_connect_to_display_with_auth_info (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==3227245==    by 0x48C5EE9: _XConnectXCB (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x48B5B68: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== 28,224 bytes in 2 blocks are still reachable in loss record 59 of 59
-==3227245==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3227245==    by 0x48B6290: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==3227245==    by 0x406917: mlx_init (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A52: init_mlx_and_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x4039A4: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245== 
-==3227245== LEAK SUMMARY:
-==3227245==    definitely lost: 0 bytes in 0 blocks
-==3227245==    indirectly lost: 0 bytes in 0 blocks
-==3227245==      possibly lost: 0 bytes in 0 blocks
-==3227245==    still reachable: 106,630 bytes in 162 blocks
-==3227245==         suppressed: 0 bytes in 0 blocks
-==3227245== 
-==3227245== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 1 from 1)
-==3227245== 
-==3227245== 1 errors in context 1 of 1:
-==3227245== Invalid read of size 4
-==3227245==    at 0x408680: mlx_destroy_image (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406439: cleanup_memory_tracker (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x405617: handle_player_movement_input (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x406D15: mlx_loop (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x403A29: initialize_game_window (in /goinfre/mbouhia/game/so_long)
-==3227245==    by 0x402643: main (in /goinfre/mbouhia/game/so_long)
-==3227245==  Address 0x28 is not stack'd, malloc'd or (recently) free'd
-==3227245== 
---3227245-- 
---3227245-- used_suppression:      1 X on SUSE11 writev uninit padding /usr/libexec/valgrind/default.supp:377
-==3227245== 
-==3227245== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 1 from 1)
+==3258453== Memcheck, a memory error detector
+==3258453== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==3258453== Using Valgrind-3.18.1-42b08ed5bd-20211015 and LibVEX; rerun with -h for copyright info
+==3258453== Command: ./so_long maps/google.ber
+==3258453== Parent PID: 3258383
+==3258453== 
+--3258453-- 
+--3258453-- Valgrind options:
+--3258453--    --leak-check=full
+--3258453--    --show-leak-kinds=all
+--3258453--    --track-origins=yes
+--3258453--    --verbose
+--3258453--    --log-file=valgrind-out.txt
+--3258453-- Contents of /proc/version:
+--3258453--   Linux version 5.15.0-127-generic (buildd@lcy02-amd64-019) (gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #137-Ubuntu SMP Fri Nov 8 15:21:01 UTC 2024
+--3258453-- 
+--3258453-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand-rdseed
+--3258453-- Page sizes: currently 4096, max supported 4096
+--3258453-- Valgrind library directory: /usr/libexec/valgrind
+--3258453-- Reading syms from /goinfre/mbouhia/game/so_long
+--3258453-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+--3258453--   Considering /usr/lib/debug/.build-id/41/86944c50f8a32b47d74931e3f512b811813b64.debug ..
+--3258453--   .. build-id is valid
+--3258453-- Reading syms from /usr/libexec/valgrind/memcheck-amd64-linux
+--3258453--    object doesn't have a symbol table
+--3258453--    object doesn't have a dynamic symbol table
+--3258453-- Scheduler: using generic scheduler lock implementation.
+--3258453-- Reading suppressions file: /usr/libexec/valgrind/default.supp
+==3258453== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-3258453-by-mbouhia-on-???
+==3258453== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-3258453-by-mbouhia-on-???
+==3258453== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-3258453-by-mbouhia-on-???
+==3258453== 
+==3258453== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==3258453== don't want to do, unless you know exactly what you're doing,
+==3258453== or are doing some strange experiment):
+==3258453==   /usr/bin/vgdb --pid=3258453 ...command...
+==3258453== 
+==3258453== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==3258453==   /path/to/gdb ./so_long
+==3258453== and then give GDB the following command
+==3258453==   target remote | /usr/bin/vgdb --pid=3258453
+==3258453== --pid is optional if only one valgrind process is running
+==3258453== 
+--3258453-- REDIR: 0x402aa40 (ld-linux-x86-64.so.2:strlen) redirected to 0x580bcec2 (???)
+--3258453-- REDIR: 0x402a810 (ld-linux-x86-64.so.2:index) redirected to 0x580bcedc (???)
+--3258453-- Reading syms from /usr/libexec/valgrind/vgpreload_core-amd64-linux.so
+--3258453--    object doesn't have a symbol table
+--3258453-- Reading syms from /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
+--3258453--    object doesn't have a symbol table
+==3258453== WARNING: new redirection conflicts with existing -- ignoring it
+--3258453--     old: 0x0402aa40 (strlen              ) R-> (0000.0) 0x580bcec2 ???
+--3258453--     new: 0x0402aa40 (strlen              ) R-> (2007.0) 0x0484ee30 strlen
+--3258453-- REDIR: 0x4027220 (ld-linux-x86-64.so.2:strcmp) redirected to 0x484fcd0 (strcmp)
+--3258453-- REDIR: 0x402afa0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4853840 (mempcpy)
+--3258453-- Reading syms from /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+--3258453--    object doesn't have a symbol table
+--3258453-- Reading syms from /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+--3258453--    object doesn't have a symbol table
+--3258453-- Reading syms from /usr/lib/x86_64-linux-gnu/libm.so.6
+--3258453--   Considering /usr/lib/debug/.build-id/a5/08ec5d8bf12fb7fd08204e0f87518e5cd0b102.debug ..
+--3258453--   .. build-id is valid
+--3258453-- Reading syms from /usr/lib/x86_64-linux-gnu/libz.so.1.2.11
+--3258453--    object doesn't have a symbol table
+--3258453-- Reading syms from /usr/lib/x86_64-linux-gnu/libc.so.6
+--3258453--   Considering /usr/lib/debug/.build-id/49/0fef8403240c91833978d494d39e537409b92e.debug ..
+--3258453--   .. build-id is valid
+==3258453== WARNING: new redirection conflicts with existing -- ignoring it
+--3258453--     old: 0x04b70c60 (memalign            ) R-> (1011.0) 0x0484e080 memalign
+--3258453--     new: 0x04b70c60 (memalign            ) R-> (1017.0) 0x0484e050 aligned_alloc
+==3258453== WARNING: new redirection conflicts with existing -- ignoring it
+--3258453--     old: 0x04b70c60 (memalign            ) R-> (1011.0) 0x0484e080 memalign
+--3258453--     new: 0x04b70c60 (memalign            ) R-> (1017.0) 0x0484e020 aligned_alloc
+==3258453== WARNING: new redirection conflicts with existing -- ignoring it
+--3258453--     old: 0x04b70c60 (memalign            ) R-> (1011.0) 0x0484e080 memalign
+--3258453--     new: 0x04b70c60 (memalign            ) R-> (1017.0) 0x0484e050 aligned_alloc
+==3258453== WARNING: new redirection conflicts with existing -- ignoring it
+--3258453--     old: 0x04b70c60 (memalign            ) R-> (1011.0) 0x0484e080 memalign
+--3258453--     new: 0x04b70c60 (memalign            ) R-> (1017.0) 0x0484e020 aligned_alloc
+--3258453-- Reading syms from /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+--3258453--    object doesn't have a symbol table
+--3258453-- Reading syms from /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+--3258453--    object doesn't have a symbol table
+--3258453-- Reading syms from /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+--3258453--    object doesn't have a symbol table
+--3258453-- Reading syms from /usr/lib/x86_64-linux-gnu/libbsd.so.0.11.5
+--3258453--    object doesn't have a symbol table
+--3258453-- Reading syms from /usr/lib/x86_64-linux-gnu/libmd.so.0.0.5
+--3258453--    object doesn't have a symbol table
+--3258453-- REDIR: 0x4b73720 (libc.so.6:strnlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b739e0 (libc.so.6:strpbrk) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b732e0 (libc.so.6:strcmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b91cd0 (libc.so.6:wcsnlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b746d0 (libc.so.6:memset) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b90540 (libc.so.6:wcslen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b74c10 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b90370 (libc.so.6:wcschr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b73260 (libc.so.6:index) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b73960 (libc.so.6:rindex) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b745a0 (libc.so.6:memmove) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+==3258453== Preferring higher priority redirection:
+--3258453--     old: 0x04c6b7c0 (__memcpy_avx_unalign) R-> (2018.0) 0x04850f90 __memcpy_avx_unaligned_erms
+--3258453--     new: 0x04c6b7c0 (__memcpy_avx_unalign) R-> (2018.1) 0x04852880 memmove
+--3258453-- REDIR: 0x4b903f0 (libc.so.6:wcscmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b749e0 (libc.so.6:stpncpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b909b0 (libc.so.6:wmemchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b73830 (libc.so.6:strncmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b74a70 (libc.so.6:strcasecmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b73420 (libc.so.6:strcspn) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b90470 (libc.so.6:wcscpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b731d0 (libc.so.6:strcat) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b74b60 (libc.so.6:strncasecmp_l) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b74480 (libc.so.6:bcmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b7c570 (libc.so.6:memrchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b76010 (libc.so.6:strchrnul) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b73390 (libc.so.6:strcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b74b10 (libc.so.6:strcasecmp_l) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b736a0 (libc.so.6:strlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b738d0 (libc.so.6:strncpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b74950 (libc.so.6:stpcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b743f0 (libc.so.6:memchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b73b00 (libc.so.6:strspn) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b747d0 (libc.so.6:mempcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b74ac0 (libc.so.6:strncasecmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4b75f80 (libc.so.6:rawmemchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--3258453-- REDIR: 0x4c68610 (libc.so.6:__strrchr_avx2) redirected to 0x484e810 (rindex)
+--3258453-- REDIR: 0x4b700a0 (libc.so.6:malloc) redirected to 0x4848820 (malloc)
+--3258453-- REDIR: 0x4b703e0 (libc.so.6:free) redirected to 0x484b210 (free)
+--3258453-- REDIR: 0x4c687e0 (libc.so.6:__strlen_avx2) redirected to 0x484ed10 (strlen)
+--3258453-- REDIR: 0x4c63d80 (libc.so.6:__strncmp_avx2) redirected to 0x484f3e0 (strncmp)
+--3258453-- REDIR: 0x4b71520 (libc.so.6:calloc) redirected to 0x484d9d0 (calloc)
+--3258453-- REDIR: 0x4c6b7c0 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x4852880 (memmove)
+--3258453-- REDIR: 0x4c68400 (libc.so.6:__strchrnul_avx2) redirected to 0x4853330 (strchrnul)
+--3258453-- REDIR: 0x4bff7e0 (libc.so.6:__strcpy_chk) redirected to 0x48533a0 (__strcpy_chk)
+--3258453-- REDIR: 0x4b73fc0 (libc.so.6:__GI_strstr) redirected to 0x4853ae0 (__strstr_sse2)
+--3258453-- REDIR: 0x4c64a80 (libc.so.6:__memcmp_avx2_movbe) redirected to 0x4852010 (bcmp)
+--3258453-- REDIR: 0x4c6bf80 (libc.so.6:__memset_avx2_unaligned_erms) redirected to 0x4852770 (memset)
+--3258453-- REDIR: 0x4c6b780 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4853440 (mempcpy)
+--3258453-- REDIR: 0x4b70740 (libc.so.6:realloc) redirected to 0x484dc50 (realloc)
+--3258453-- REDIR: 0x4c6a040 (libc.so.6:__strncpy_avx2) redirected to 0x484efe0 (strncpy)
+--3258453-- REDIR: 0x4c63940 (libc.so.6:__strcmp_avx2) redirected to 0x484fbd0 (strcmp)
+--3258453-- REDIR: 0x4c69cb0 (libc.so.6:__strcpy_avx2) redirected to 0x484ee60 (strcpy)
+--3258453-- REDIR: 0x4c65130 (libc.so.6:__strcasecmp_avx) redirected to 0x484f560 (strcasecmp)
+==3258453== 
+==3258453== HEAP SUMMARY:
+==3258453==     in use at exit: 0 bytes in 0 blocks
+==3258453==   total heap usage: 8,541 allocs, 8,541 frees, 2,426,987 bytes allocated
+==3258453== 
+==3258453== All heap blocks were freed -- no leaks are possible
+==3258453== 
+==3258453== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--3258453-- 
+--3258453-- used_suppression:      1 X on SUSE11 writev uninit padding /usr/libexec/valgrind/default.supp:377
+==3258453== 
+==3258453== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)

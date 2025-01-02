@@ -68,11 +68,14 @@ void cleanup_memory_tracker(t_alloc_record **memory_records)
         return;
 
     current = *memory_records;
+
     while (current != NULL)
     {
         next = current->next;
         if (current->free_func && current->ptr)
+        {
             current->free_func(current->ptr);
+        }
         free(current);
         current = next;
     }
