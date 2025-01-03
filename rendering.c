@@ -2,8 +2,14 @@
 
 int render_next_game_frame(t_game *game)
 {
+    int divider;
 
-    if(game->frame_counter % 100 == 0)
+    if(game->map.height * game->map.width < 620)
+        divider = 35;
+    else
+        divider = 100;
+
+    if(game->frame_counter % divider == 0)
     {
         animate_player_sprite(game);
         animate_enemy_sprite(game);
@@ -56,8 +62,14 @@ void draw_pixel(t_game *game, t_vars *to_draw, int x, int y, int src_x)
 
 int render_game_frame(t_game *game)
 {
+    int divider;
+
     game->frame_counter++;
-    if(game->frame_counter % 10 == 0)
+    if(game->map.height * game->map.width < 620)
+        divider = 50;
+    else
+        divider = 10;
+    if(game->frame_counter % divider == 0)
         update_game_state(game);
     render_next_game_frame(game);
     handle_death(game);

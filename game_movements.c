@@ -52,8 +52,6 @@ void calculate_next_position(t_game *game)
             game->player.x_end_pos = game->player.x_pos + SCALE;
         if(game->in_action == 1)
             game->move_counter++;
-       // printf("Move counter: %d\n", game->move_counter);
-
     }
 }
 

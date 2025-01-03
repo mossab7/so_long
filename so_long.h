@@ -31,6 +31,7 @@ typedef struct s_map
 typedef enum e_key
 {
     ESC = 65307,
+    ClientMessage = 33,
     UP = 65362,  
     LEFT = 65361,
     DOWN = 65364,

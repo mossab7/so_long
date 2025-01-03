@@ -45,7 +45,7 @@ static int	is_valid_pos(t_point pos, t_point size, char **tab, char **visited)
         return (0);
     if (visited[pos.y][pos.x])
         return (0);
-    if (tab[pos.y][pos.x] == '1')
+    if (ft_strchr("1X",tab[pos.y][pos.x]))
         return (0);
     return (1);
 }
