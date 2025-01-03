@@ -34,6 +34,11 @@ void calculate_possible_moves(t_game *game, t_vars *enemy, int enemy_idx,
     }
 }
 
+// void check_collactable_collision(t_vars *enemy)
+// {
+//     if(enemy[])
+// }
+
 void process_enemy_moves(t_game *game, t_vars *enemy, int enemy_idx)
 {
     if(enemy->x_end_pos != enemy->x_pos || enemy->y_end_pos != enemy->y_pos)

@@ -122,7 +122,7 @@ int render_game_frame(t_game *game);
 void animate_player_sprite(t_game *game);
 void animate_enemy_sprite(t_game *game);
 int update_sprite_animation_frame(t_game *game,t_vars *to_draw,int frames);
-void render_character_movement(t_game *game,t_vars *to_draw,int in_action);
+void render_character_movement(t_game *game,t_vars *to_draw,int in_action,int flag);
 void update_all_characters_positions(t_game *game);
 int render_next_game_frame(t_game *game);
 int load_images(t_game *game);

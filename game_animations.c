@@ -24,50 +24,50 @@ int update_sprite_frame(t_vars *to_draw, int frames, int *frame_flag)
     return 0;
 }
 
-void render_movement(t_game *game, t_vars *to_draw, int in_action)
-{
-    if(in_action)
-    {
-        draw_floor(game, to_draw->x_start_pos, to_draw->y_start_pos);
-        to_draw->x_start_pos = to_draw->x_pos;
-        to_draw->y_start_pos = to_draw->y_pos;
-        draw_sprite_to_canvas(game, *to_draw);
-    }
-    else
-    {
-        to_draw->x_pos = to_draw->x_start_pos;
-        to_draw->y_pos = to_draw->y_start_pos;
-    }
-}
+// void render_movement(t_game *game, t_vars *to_draw, int in_action)
+// {
+//     if(in_action)
+//     {
+//         draw_floor(game, to_draw->x_start_pos, to_draw->y_start_pos);
+//         to_draw->x_start_pos = to_draw->x_pos;
+//         to_draw->y_start_pos = to_draw->y_pos;
+//         draw_sprite_to_canvas(game, *to_draw);
+//     }
+//     else
+//     {
+//         to_draw->x_pos = to_draw->x_start_pos;
+//         to_draw->y_pos = to_draw->y_start_pos;
+//     }
+// }
 
-void update_positions(t_game *game)
-{
-    int i;
+// void update_positions(t_game *game)
+// {
+//     int i;
 
-    render_movement(game, &game->player, game->in_action);
-    i = 0;
-    while(i < game->enemies_counter)
-    {
-        render_movement(game, &game->enemy[i], game->start_game_flag);
-        i++;
-    }
-}
+//     render_movement(game, &game->player, game->in_action);
+//     i = 0;
+//     while(i < game->enemies_counter)
+//     {
+//         render_movement(game, &game->enemy[i], game->start_game_flag);
+//         i++;
+//     }
+// }
 
-void animate_player(t_game *game)
-{
-    int frames;
+// void animate_player(t_game *game)
+// {
+//     int frames;
 
-    if (game->player.frame_y == SCALE * 4)
-    {
-        frames = 9;
-        game->frame_flag = 0;
-    }
-    else
-    {
-        frames = 2;
-    }
-    update_sprite_frame(&game->player, frames, &game->frame_flag);
-}
+//     if (game->player.frame_y == SCALE * 4)
+//     {
+//         frames = 9;
+//         game->frame_flag = 0;
+//     }
+//     else
+//     {
+//         frames = 2;
+//     }
+//     update_sprite_frame(&game->player, frames, &game->frame_flag);
+// }
 
 void clear_enemies(t_game *game)
 {
