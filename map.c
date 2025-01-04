@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/04 15:55:12 by mbouhia           #+#    #+#             */
+/*   Updated: 2025/01/04 15:55:12 by mbouhia          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 t_stack	*create_stack(int capacity)
@@ -155,7 +167,12 @@ static int	initialize_map(t_game *game, char *map_path)
     if (ft_realloc(&game->map.map, line, game->map.height) == -1)
         return (-1);
     if (game->map.width == 0)
+    {
         game->map.width = ft_strlen(line);
+        if(game->map.map[game->map.height - 1][game->map.width - 2] != '\n')
+            game->map.width--;
+    }
+
     return (0);
 }
 

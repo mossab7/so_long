@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_state.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/04 15:55:12 by mbouhia           #+#    #+#             */
+/*   Updated: 2025/01/04 15:55:12 by mbouhia          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void move_enemy_towards_target(t_game *game)
@@ -16,7 +28,6 @@ void update_game_state(t_game *game)
     move_player_towards_target(game);
     update_enemy_sprite_direction(game);
     move_enemy_towards_target(game);
-    //tmp:
     draw_sprite_to_canvas(game, game->portal);
     draw_sprite_to_canvas(game, game->player);
     check_collision(game);

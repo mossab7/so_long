@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_initializer.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/04 15:55:12 by mbouhia           #+#    #+#             */
+/*   Updated: 2025/01/04 15:55:12 by mbouhia          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static void	init_image_paths(char **image_path)
@@ -32,27 +44,30 @@ static void	init_image_vars(t_game *game, t_vars **images)
 	images[11] = &game->enemy[6];
 }
 
-void	destroy_image(t_vars *img_var)
-{
-	t_game	*game;
 
-	game = get_game_instance();
-	mlx_destroy_image(game->mlx, (void *)&img_var->image);
+void destroy_image(void *img_var) 
+{
+    t_vars *to_destroy;
+    t_game *game;
+
+    to_destroy = (t_vars *)img_var;  
+    game = get_game_instance();
+    mlx_destroy_image(game->mlx, to_destroy->image); 
 }
 
-static int	load_single_image(t_game *game, t_vars *img_var, char *path)
+static int load_single_image(t_game *game, t_vars *img_var, char *path)
 {
-	img_var->image = mlx_xpm_file_to_image(game->mlx, path, &img_var->width,
-			&img_var->height);
-	if (!img_var->image)
-		return (-1);
-	img_var->image_addr = mlx_get_data_addr(img_var->image, &img_var->bpp,
-			&img_var->line_size, &img_var->endian);
-	if (!img_var->image_addr)
-		return (-1);
-	register_memory_allocation(get_memory_tracker(),
-		create_memory_record(img_var->image, destroy_image));
-	return (0);
+    img_var->image = mlx_xpm_file_to_image(game->mlx, path, &img_var->width,
+            &img_var->height);
+    if (!img_var->image)
+        return (-1);
+    img_var->image_addr = mlx_get_data_addr(img_var->image, &img_var->bpp,
+            &img_var->line_size, &img_var->endian);
+    if (!img_var->image_addr)
+        return (-1);
+    register_memory_allocation(get_memory_tracker(),
+        create_memory_record(img_var, destroy_image));  
+    return (0);
 }
 
 int	load_images(t_game *game)
@@ -114,8 +129,8 @@ static int	init_mlx_and_window(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (-1);
-	game->win = mlx_new_window(game->mlx, (game->map.width - 1) * SCALE,
-			(game->map.height + 3) * SCALE, "so_long");
+	game->win = mlx_new_window(game->mlx, (game->map.width) * SCALE,
+			(game->map.height + 2) * SCALE, "so_long");
 	if (!game->win)
 	{
 		mlx_destroy_display(game->mlx);
@@ -128,7 +143,7 @@ static int	init_mlx_and_window(t_game *game)
 static int	init_canvas(t_game *game)
 {
 	game->canvas.image = mlx_new_image(game->mlx, game->map.width * SCALE,
-			game->map.height * SCALE);
+			(game->map.height + 2) * SCALE);
 	if (!game->canvas.image)
 	{
 		mlx_destroy_window(game->mlx, game->win);
@@ -149,11 +164,20 @@ static int	init_canvas(t_game *game)
 	return (0);
 }
 
+int cleanup_and_exit_wrapper(void *ptr)
+{
+	t_game *game;
+
+	game = (t_game *)ptr;
+	cleanup_and_exit(game);
+	return (0);
+}
+
 static void	setup_game_hooks(t_game *game)
 {
 	mlx_loop_hook(game->mlx, render_game_frame, game);
 	mlx_hook(game->win, 2, 1L << 0, handle_player_movement_input, game);
-	mlx_hook(game->win, 33, 0, cleanup_and_exit, game);
+	mlx_hook(game->win, 33, 0, cleanup_and_exit_wrapper, game);
 }
 int	initialize_game_window(t_game *game)
 {

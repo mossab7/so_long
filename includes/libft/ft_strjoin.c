@@ -49,9 +49,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char	*joinstrs;
 	size_t	size;
 
-	if(!s1)
+	if (!s1)
 		return (ft_strdup(s2));
-	if(!s2)
+	if (!s2)
 		return (ft_strdup(s1));
 	size = ft_strlen(s1) + ft_strlen(s2);
 	joinstrs = malloc((size + 1) * (sizeof(char)));

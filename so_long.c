@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/04 15:55:12 by mbouhia           #+#    #+#             */
+/*   Updated: 2025/01/04 15:55:12 by mbouhia          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 t_game *get_game_instance(void)
@@ -24,13 +36,11 @@ int main(int ac, char **av)
         ft_putendl_fd("Error: Failed to read map", 2);
         return (1);
     }
-
     if (check_map_if_valid(game) == -1)
     {
         ft_putendl_fd("Error: Map is NOT valid", 2);
         return (1);
     }
-
     if(initialize_game_window(game) == -1)
     {
         ft_putendl_fd("Error: Failed to launch the game",2);

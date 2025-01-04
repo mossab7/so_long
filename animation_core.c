@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   animation_core.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/04 15:55:11 by mbouhia           #+#    #+#             */
+/*   Updated: 2025/01/04 15:55:11 by mbouhia          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 int	update_sprite_animation_frame(t_game *game, t_vars *to_draw, int frames)
@@ -48,8 +60,7 @@ void	redraw_collectable(t_game *game)
 	}
 }
 
-void	render_character_movement(t_game *game, t_vars *to_draw, int in_action,
-		int is_enemy)
+void	render_character_movement(t_game *game, t_vars *to_draw, int in_action)
 {
 	if (in_action == 1)
 	{
@@ -71,11 +82,11 @@ void	update_all_characters_positions(t_game *game)
 {
 	int	i;
 
-	render_character_movement(game, &game->player, game->in_action, 0);
+	render_character_movement(game, &game->player, game->in_action);
 	i = 0;
 	while (i < game->enemies_counter)
 		render_character_movement(game, &game->enemy[i++],
-			game->start_game_flag, 1);
+			game->start_game_flag);
 }
 
 void	animate_player_sprite(t_game *game)

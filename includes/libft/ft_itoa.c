@@ -43,7 +43,7 @@ char	*ft_itoa(int n)
 
 	len = ft_numlen(n);
 	sign = (n < 0);
-	number = (char *)malloc((len + 1) * sizeof(char));
+	number = (char *)allocate_tracked_memory((len + 1) * sizeof(char));
 	if (!number)
 		return (NULL);
 	nb = n;

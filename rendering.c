@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rendering.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/04 15:55:12 by mbouhia           #+#    #+#             */
+/*   Updated: 2025/01/04 15:55:12 by mbouhia          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 int render_next_game_frame(t_game *game)
@@ -71,8 +83,11 @@ int render_game_frame(t_game *game)
         divider = 10;
     if(game->frame_counter % divider == 0)
         update_game_state(game);
+    printf("game->move_counter: %d\n", game->move_counter);
     render_next_game_frame(game);
     handle_death(game);
+    mlx_string_put(game->mlx, game->win, ((game->map.width * SCALE)/2),
+     ((game->map.height + 1) * SCALE) , 0x00FFFFFF, ft_itoa(game->move_counter));
     mlx_put_image_to_window(game->mlx, game->win, game->canvas.image, 0, 0);
     return 0;
 }

@@ -14,7 +14,7 @@ $(LIBFT):
 	make -C $(LIBFT_DIR)
 
 $(SO_LONG) : $(MSRCS)
-	$(CC)  $(MSRCS) -o $(SO_LONG) -L$(LIBFT_DIR) -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+	$(CC) $(CFLAGS) $(MSRCS) -o $(SO_LONG) -L$(LIBFT_DIR) -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 clean:
 	make -C $(LIBFT_DIR) clean
