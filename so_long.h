@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/04 21:24:38 by mbouhia           #+#    #+#             */
+/*   Updated: 2025/01/04 21:24:39 by mbouhia          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -58,6 +70,12 @@ typedef struct s_stack
 	int			top;
 	int			capacity;
 }				t_stack;
+
+typedef struct s_coordinate
+{
+	int			x;
+	int			y;
+}				t_coordinate;
 
 typedef struct s_vars
 {
@@ -153,7 +171,9 @@ void			update_enemy_direction(t_vars *enemy, t_vars player);
 int				update_sprite_frame(t_vars *to_draw, int frames,
 					int *frame_flag);
 void			draw_floor(t_game *game, int x, int y);
-void			draw_pixel(t_game *game, t_vars *to_draw, int x, int y,
+// void			draw_pixel(t_game *game, t_vars *to_draw, int x, int y,
+// 					int src_x);
+void			draw_pixel(t_game *game, t_vars *to_draw, t_coordinate coord,
 					int src_x);
 void			render_movement(t_game *game, t_vars *to_draw, int in_action);
 int				is_overlapping(t_vars obj1, t_vars obj2, int overlap);

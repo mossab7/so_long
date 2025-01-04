@@ -17,7 +17,7 @@ static void	init_image_paths(char **image_path)
 	image_path[0] = "sprites/Other/Walls/wall.xpm";
 	image_path[1] = "sprites/Other/Walls/black.xpm";
 	image_path[2] = "sprites/Other/Pacdots/pacdot_food.xpm";
-	image_path[3] = "pac_frames.xpm";
+	image_path[3] = "sprites/Pac-Man/pac_frames.xpm";
 	image_path[4] = "sprites/Other/Portal/portal.xpm";
 	image_path[5] = "sprites/Ghosts/R/red_ghost_frames.xpm";
 	image_path[6] = "sprites/Ghosts/Y/red_yellow_frames.xpm";

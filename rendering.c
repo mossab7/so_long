@@ -38,25 +38,24 @@ void	draw_floor(t_game *game, int x, int y)
 
 int	draw_sprite_to_canvas(t_game *game, t_vars to_draw)
 {
-	int	x;
-	int	y;
+	t_coordinate	coord;
 
-	y = 0;
-	while (y < SCALE)
+	coord.y = 0;
+	while (coord.y < SCALE)
 	{
-		x = 0;
-		while (x < SCALE)
+		coord.x = 0;
+		while (coord.x < SCALE)
 		{
-			draw_pixel(game, &to_draw, x, y, to_draw.frame_x + x);
-			x++;
+			draw_pixel(game, &to_draw, coord, to_draw.frame_x + coord.x);
+			coord.x++;
 		}
 		to_draw.frame_y++;
-		y++;
+		coord.y++;
 	}
 	return (0);
 }
 
-void	draw_pixel(t_game *game, t_vars *to_draw, int x, int y, int src_x)
+void	draw_pixel(t_game *game, t_vars *to_draw, t_coordinate coord, int src_x)
 {
 	char	*src;
 	char	*dst;
@@ -65,8 +64,8 @@ void	draw_pixel(t_game *game, t_vars *to_draw, int x, int y, int src_x)
 			* (to_draw->bpp / 8));
 	if (*(unsigned int *)src != 0xFF000000)
 	{
-		dst = game->canvas.image_addr + ((to_draw->y_pos + y)
-				* game->canvas.line_size + (to_draw->x_pos + x)
+		dst = game->canvas.image_addr + ((to_draw->y_pos + coord.y)
+				* game->canvas.line_size + (to_draw->x_pos + coord.x)
 				* (game->canvas.bpp / 8));
 		*(unsigned int *)dst = *(unsigned int *)src;
 	}

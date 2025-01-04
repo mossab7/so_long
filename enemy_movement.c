@@ -24,8 +24,8 @@ void	init_direction_arrays(int *dx, int *dy)
 	dy[3] = -SCALE;
 }
 
-void	calculate_possible_moves(t_game *game, t_vars *enemy,
-		t_move *moves, t_move_vars *move_vars)
+void	calculate_possible_moves(t_game *game, t_vars *enemy, t_move *moves,
+		t_move_vars *move_vars)
 {
 	int	m;
 	int	new_x;
@@ -41,9 +41,8 @@ void	calculate_possible_moves(t_game *game, t_vars *enemy,
 		{
 			moves[move_vars->valid_moves].dx = move_vars->dx[m];
 			moves[move_vars->valid_moves].dy = move_vars->dy[m];
-			moves[move_vars->valid_moves].score = evaluate_move(game, 
-												move_vars->enemy_idx, new_x,
-					new_y);
+			moves[move_vars->valid_moves].score = evaluate_move(game,
+					move_vars->enemy_idx, new_x, new_y);
 			(move_vars->valid_moves)++;
 		}
 		m++;
