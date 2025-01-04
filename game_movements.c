@@ -12,20 +12,8 @@
 
 #include "so_long.h"
 
-int	handle_player_movement_input(int keycode, t_game *game)
+void	update_player_direction(int keycode, t_game *game)
 {
-	static int	first_move = 1;
-
-	if (first_move)
-	{
-		game->start_game_flag = 1;
-		game->player.frame_x = 0;
-		first_move = 0;
-	}
-	if (keycode == ESC)
-	{
-		cleanup_and_exit(game);
-	}
 	if (keycode == UP || keycode == 'w' || keycode == 'W')
 	{
 		game->player.new_direction = UP;
@@ -46,6 +34,23 @@ int	handle_player_movement_input(int keycode, t_game *game)
 		game->player.new_direction = DOWN;
 		game->player.frame_y = SCALE;
 	}
+}
+
+int	handle_player_movement_input(int keycode, t_game *game)
+{
+	static int	first_move = 1;
+
+	if (first_move)
+	{
+		game->start_game_flag = 1;
+		game->player.frame_x = 0;
+		first_move = 0;
+	}
+	if (keycode == ESC)
+	{
+		cleanup_and_exit(game);
+	}
+	update_player_direction(keycode, game);
 	return (0);
 }
 
@@ -56,11 +61,11 @@ void	calculate_next_position(t_game *game)
 	{
 		game->player.direction = game->player.new_direction;
 		if (game->player.direction == UP && game->map.map[(game->player.y_pos
-				- SCALE) / SCALE][game->player.x_pos / SCALE] != '1')
+					- SCALE) / SCALE][game->player.x_pos / SCALE] != '1')
 			game->player.y_end_pos = game->player.y_pos - SCALE;
 		else if (game->player.direction == DOWN
 			&& game->map.map[(game->player.y_pos + SCALE)
-			/ SCALE][game->player.x_pos / SCALE] != '1')
+				/ SCALE][game->player.x_pos / SCALE] != '1')
 			game->player.y_end_pos = game->player.y_pos + SCALE;
 		else if (game->player.direction == LEFT
 			&& game->map.map[game->player.y_pos / SCALE][(game->player.x_pos
@@ -72,6 +77,16 @@ void	calculate_next_position(t_game *game)
 			game->player.x_end_pos = game->player.x_pos + SCALE;
 		if (game->in_action == 1)
 			game->move_counter++;
+	}
+}
+
+void	update_player_position_status(t_game *game)
+{
+	if (game->player.x_pos == game->player.x_end_pos
+		&& game->player.y_pos == game->player.y_end_pos
+		&& game->start_game_flag == 1)
+	{
+		calculate_next_position(game);
 	}
 }
 
@@ -98,10 +113,5 @@ void	move_player_towards_target(t_game *game)
 		game->player.x_pos--;
 		game->in_action = 1;
 	}
-	if (game->player.x_pos == game->player.x_end_pos
-		&& game->player.y_pos == game->player.y_end_pos
-		&& game->start_game_flag == 1)
-	{
-		calculate_next_position(game);
-	}
+	update_player_position_status(game);
 }
