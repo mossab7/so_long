@@ -41,7 +41,8 @@ void	calculate_possible_moves(t_game *game, t_vars *enemy,
 		{
 			moves[move_vars->valid_moves].dx = move_vars->dx[m];
 			moves[move_vars->valid_moves].dy = move_vars->dy[m];
-			moves[move_vars->valid_moves].score = evaluate_move(game, move_vars->enemy_idx, new_x,
+			moves[move_vars->valid_moves].score = evaluate_move(game, 
+												move_vars->enemy_idx, new_x,
 					new_y);
 			(move_vars->valid_moves)++;
 		}
@@ -51,7 +52,7 @@ void	calculate_possible_moves(t_game *game, t_vars *enemy,
 
 void	process_enemy_moves(t_game *game, t_vars *enemy, int enemy_idx)
 {
-	t_move	moves[MAX_MOVES];
+	t_move		moves[MAX_MOVES];
 	t_move_vars	move_vars;
 
 	if (enemy->x_end_pos != enemy->x_pos || enemy->y_end_pos != enemy->y_pos)

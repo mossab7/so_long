@@ -44,30 +44,29 @@ static void	init_image_vars(t_game *game, t_vars **images)
 	images[11] = &game->enemy[6];
 }
 
-
-void destroy_image(void *img_var) 
+void	destroy_image(void *img_var)
 {
-    t_vars *to_destroy;
-    t_game *game;
+	t_vars	*to_destroy;
+	t_game	*game;
 
-    to_destroy = (t_vars *)img_var;  
-    game = get_game_instance();
-    mlx_destroy_image(game->mlx, to_destroy->image); 
+	to_destroy = (t_vars *)img_var;
+	game = get_game_instance();
+	mlx_destroy_image(game->mlx, to_destroy->image);
 }
 
-static int load_single_image(t_game *game, t_vars *img_var, char *path)
+static int	load_single_image(t_game *game, t_vars *img_var, char *path)
 {
-    img_var->image = mlx_xpm_file_to_image(game->mlx, path, &img_var->width,
-            &img_var->height);
-    if (!img_var->image)
-        return (-1);
-    img_var->image_addr = mlx_get_data_addr(img_var->image, &img_var->bpp,
-            &img_var->line_size, &img_var->endian);
-    if (!img_var->image_addr)
-        return (-1);
-    register_memory_allocation(get_memory_tracker(),
-        create_memory_record(img_var, destroy_image));  
-    return (0);
+	img_var->image = mlx_xpm_file_to_image(game->mlx, path, &img_var->width,
+			&img_var->height);
+	if (!img_var->image)
+		return (-1);
+	img_var->image_addr = mlx_get_data_addr(img_var->image, &img_var->bpp,
+			&img_var->line_size, &img_var->endian);
+	if (!img_var->image_addr)
+		return (-1);
+	register_memory_allocation(get_memory_tracker(),
+		create_memory_record(img_var, destroy_image));
+	return (0);
 }
 
 int	load_images(t_game *game)
@@ -164,9 +163,9 @@ static int	init_canvas(t_game *game)
 	return (0);
 }
 
-int cleanup_and_exit_wrapper(void *ptr)
+int	cleanup_and_exit_wrapper(void *ptr)
 {
-	t_game *game;
+	t_game	*game;
 
 	game = (t_game *)ptr;
 	cleanup_and_exit(game);

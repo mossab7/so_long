@@ -182,8 +182,8 @@ float			evaluate_move(t_game *game, int enemy_idx, int new_x,
 					int new_y);
 float			calculate_distance(int x1, int y1, int x2, int y2);
 void			init_direction_arrays(int *dx, int *dy);
-void	calculate_possible_moves(t_game *game, t_vars *enemy,
-		t_move *moves, t_move_vars *move_vars);
+void			calculate_possible_moves(t_game *game, t_vars *enemy,
+					t_move *moves, t_move_vars *move_vars);
 void			process_enemy_moves(t_game *game, t_vars *enemy, int enemy_idx);
 void			calculate_enemy_next_position(t_game *game);
 void			free_map_resources(char **map, int size);
