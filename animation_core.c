@@ -40,7 +40,7 @@ void	redraw_collectable(t_game *game)
 	int	j;
 
 	i = 0;
-    if (game->map.map[game->player.y_end_pos / SCALE][game->player.x_end_pos
+	if (game->map.map[game->player.y_end_pos / SCALE][game->player.x_end_pos
 		/ SCALE] == 'C')
 	{
 		game->collectable_counter--;
@@ -102,7 +102,7 @@ void	animate_player_sprite(t_game *game)
 
 void	animate_enemy_sprite(t_game *game)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < game->enemies_counter)

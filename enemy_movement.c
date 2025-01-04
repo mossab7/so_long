@@ -49,6 +49,8 @@ void	calculate_possible_moves(t_game *game, t_vars *enemy, int enemy_idx,
 	}
 }
 
+
+
 void	process_enemy_moves(t_game *game, t_vars *enemy, int enemy_idx)
 {
 	t_move	moves[MAX_MOVES];
