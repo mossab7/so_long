@@ -24,47 +24,43 @@ void	init_direction_arrays(int *dx, int *dy)
 	dy[3] = -SCALE;
 }
 
-void	calculate_possible_moves(t_game *game, t_vars *enemy, int enemy_idx,
-		t_move *moves, int *valid_moves, const int *dx, const int *dy)
+void	calculate_possible_moves(t_game *game, t_vars *enemy,
+		t_move *moves, t_move_vars *move_vars)
 {
 	int	m;
 	int	new_x;
 	int	new_y;
 
 	m = 0;
-	*valid_moves = 0;
+	move_vars->valid_moves = 0;
 	while (m < MAX_MOVES)
 	{
-		new_x = enemy->x_pos + dx[m];
-		new_y = enemy->y_pos + dy[m];
-		if (is_valid_move(game, enemy_idx, new_x, new_y))
+		new_x = enemy->x_pos + move_vars->dx[m];
+		new_y = enemy->y_pos + move_vars->dy[m];
+		if (is_valid_move(game, move_vars->enemy_idx, new_x, new_y))
 		{
-			moves[*valid_moves].dx = dx[m];
-			moves[*valid_moves].dy = dy[m];
-			moves[*valid_moves].score = evaluate_move(game, enemy_idx, new_x,
+			moves[move_vars->valid_moves].dx = move_vars->dx[m];
+			moves[move_vars->valid_moves].dy = move_vars->dy[m];
+			moves[move_vars->valid_moves].score = evaluate_move(game, move_vars->enemy_idx, new_x,
 					new_y);
-			(*valid_moves)++;
+			(move_vars->valid_moves)++;
 		}
 		m++;
 	}
 }
 
-
-
 void	process_enemy_moves(t_game *game, t_vars *enemy, int enemy_idx)
 {
 	t_move	moves[MAX_MOVES];
-	int		valid_moves;
-	int		dx[MAX_MOVES];
-	int		dy[MAX_MOVES];
+	t_move_vars	move_vars;
 
 	if (enemy->x_end_pos != enemy->x_pos || enemy->y_end_pos != enemy->y_pos)
 		return ;
-	valid_moves = 0;
-	init_direction_arrays(dx, dy);
-	calculate_possible_moves(game, enemy, enemy_idx, moves, &valid_moves, dx,
-		dy);
-	update_enemy_position(game, enemy_idx, moves, valid_moves);
+	move_vars.valid_moves = 0;
+	move_vars.enemy_idx = enemy_idx;
+	init_direction_arrays(move_vars.dx, move_vars.dy);
+	calculate_possible_moves(game, enemy, moves, &move_vars);
+	update_enemy_position(game, enemy_idx, moves, move_vars.valid_moves);
 }
 
 void	calculate_enemy_next_position(t_game *game)
