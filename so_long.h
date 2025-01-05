@@ -172,8 +172,6 @@ void			update_enemy_direction(t_vars *enemy, t_vars player);
 int				update_sprite_frame(t_vars *to_draw, int frames,
 					int *frame_flag);
 void			draw_floor(t_game *game, int x, int y);
-// void			draw_pixel(t_game *game, t_vars *to_draw, int x, int y,
-// 					int src_x);
 void			draw_pixel(t_game *game, t_vars *to_draw, t_coordinate coord,
 					int src_x);
 void			render_movement(t_game *game, t_vars *to_draw, int in_action);
@@ -212,4 +210,30 @@ void			destroy_image(void *img_var);
 t_game			*get_game_instance(void);
 void			check_collision(t_game *game);
 void			handle_death(t_game *game);
+void			free_stack(t_stack *stack);
+t_stack			*create_stack(int capacity);
+void			push(t_stack *stack, t_point point);
+t_point			pop(t_stack *stack);
+int				is_empty(t_stack *stack);
+int				init_search(char ***visited, t_stack **stack, t_point size);
+int				is_valid_pos(t_point pos, t_point size, char **tab,
+					char **visited);
+void			set_moves(t_point moves[4]);
+char			**search_for_path(char **tab, t_point size, t_point begin);
+int				process_map_line(t_game *game, char *line);
+int				read_map(char *map_path, t_game *game);
+void			get_player_and_exit_pos(t_game *game);
+int				check_if_visited(t_game *game, char **visited);
+int				check_path(t_game *game);
+int				check_components(t_game *game);
+int				check_boundaries(t_game *game);
+int				check_map_if_valid(t_game *game);
+void			free_map_resources(char **map, int size);
+char			**allocate_new_array(int size);
+int				copy_existing_elements(char **tmp, char **old_arr, int size);
+int				ft_realloc(char ***arr, char *str, int size);
+int				initialize_map(t_game *game, char *map_path);
+int				check_path(t_game *game);
+void			get_player_and_exit_pos(t_game *game);
+int				check_if_visited(t_game *game, char **visited);
 #endif

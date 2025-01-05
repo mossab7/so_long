@@ -17,7 +17,7 @@ int	render_next_game_frame(t_game *game)
 	int	divider;
 
 	if (game->map.height * game->map.width < 620)
-		divider = 35;
+		divider = 10;
 	else
 		divider = 100;
 	if (game->frame_counter % divider == 0)
@@ -76,13 +76,14 @@ int	render_game_frame(t_game *game)
 	int	divider;
 
 	game->frame_counter++;
-	if (game->map.height * game->map.width < 620)
-		divider = 50;
+	if(game->map.height * game->map.width < 100)
+		divider = 30;
+	else if(game->map.height * game->map.width < 620)
+		divider = 15;
 	else
 		divider = 10;
 	if (game->frame_counter % divider == 0)
 		update_game_state(game);
-	printf("game->move_counter: %d\n", game->move_counter);
 	render_next_game_frame(game);
 	handle_death(game);
 	mlx_string_put(game->mlx, game->win, ((game->map.width * SCALE) / 2),
