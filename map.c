@@ -6,7 +6,7 @@
 /*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:55:12 by mbouhia           #+#    #+#             */
-/*   Updated: 2025/01/04 15:55:12 by mbouhia          ###   ########.fr       */
+/*   Updated: 2025/01/05 19:44:23 by mbouhia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	read_map(char *map_path, t_game *game)
 	int		fd;
 	char	*line;
 
-	if ((fd = initialize_map(game, map_path)) == -1)
+	fd = initialize_map(game, map_path);
+	if (fd == -1)
 		return (-1);
 	while (1)
 	{
@@ -63,8 +64,6 @@ int	read_map(char *map_path, t_game *game)
 		return (0);
 	return (-1);
 }
-
-
 
 int	check_components(t_game *game)
 {

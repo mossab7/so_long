@@ -6,7 +6,7 @@
 /*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 21:24:38 by mbouhia           #+#    #+#             */
-/*   Updated: 2025/01/04 21:24:39 by mbouhia          ###   ########.fr       */
+/*   Updated: 2025/01/05 19:45:25 by mbouhia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,6 @@ int				initialize_map(t_game *game, char *map_path);
 int				check_path(t_game *game);
 void			get_player_and_exit_pos(t_game *game);
 int				check_if_visited(t_game *game, char **visited);
-void	redraw_collectable(t_game *game);
-void	draw_collectable(t_game *game, int x, int y);
+void			redraw_collectable(t_game *game);
+void			draw_collectable(t_game *game, int x, int y);
 #endif

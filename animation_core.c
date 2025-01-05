@@ -6,7 +6,7 @@
 /*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:55:11 by mbouhia           #+#    #+#             */
-/*   Updated: 2025/01/04 15:55:11 by mbouhia          ###   ########.fr       */
+/*   Updated: 2025/01/05 19:40:28 by mbouhia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	render_character_movement(t_game *game, t_vars *to_draw, int in_action)
 		to_draw->y_pos = to_draw->y_start_pos;
 	}
 }
+
 void	update_all_characters_positions(t_game *game)
 {
 	int	i;

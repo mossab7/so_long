@@ -6,7 +6,7 @@
 /*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:47:26 by mbouhia           #+#    #+#             */
-/*   Updated: 2025/01/05 18:47:27 by mbouhia          ###   ########.fr       */
+/*   Updated: 2025/01/05 19:40:56 by mbouhia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	get_player_and_exit_pos(t_game *game)
 
 int	check_if_visited(t_game *game, char **visited)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < game->map.height)

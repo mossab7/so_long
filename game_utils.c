@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_utiles.c                                      :+:      :+:    :+:   */
+/*   game_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:55:12 by mbouhia           #+#    #+#             */
-/*   Updated: 2025/01/04 15:55:12 by mbouhia          ###   ########.fr       */
+/*   Updated: 2025/01/05 19:42:14 by mbouhia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int	render_game_map(t_game *game)
 
 void	destroy_image(void *img_var)
 {
-	t_vars *to_destroy;
-	t_game *game;
+	t_vars	*to_destroy;
+	t_game	*game;
 
 	to_destroy = (t_vars *)img_var;
 	game = get_game_instance();

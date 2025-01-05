@@ -6,7 +6,7 @@
 /*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:55:12 by mbouhia           #+#    #+#             */
-/*   Updated: 2025/01/04 15:55:12 by mbouhia          ###   ########.fr       */
+/*   Updated: 2025/01/05 19:44:58 by mbouhia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ int	render_game_frame(t_game *game)
 	int	divider;
 
 	game->frame_counter++;
-	if(game->map.height * game->map.width < 100)
+	if (game->map.height * game->map.width < 100)
 		divider = 30;
-	else if(game->map.height * game->map.width < 620)
+	else if (game->map.height * game->map.width < 620)
 		divider = 15;
 	else
 		divider = 10;

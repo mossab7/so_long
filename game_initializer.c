@@ -6,7 +6,7 @@
 /*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:55:12 by mbouhia           #+#    #+#             */
-/*   Updated: 2025/01/04 15:55:12 by mbouhia          ###   ########.fr       */
+/*   Updated: 2025/01/05 19:41:19 by mbouhia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	setup_game_hooks(t_game *game)
 	mlx_hook(game->win, 2, 1L << 0, handle_player_movement_input, game);
 	mlx_hook(game->win, 33, 0, cleanup_and_exit_wrapper, game);
 }
+
 int	initialize_game_window(t_game *game)
 {
 	if (init_mlx_and_window(game) == -1)

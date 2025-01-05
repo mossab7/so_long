@@ -6,7 +6,7 @@
 /*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:47:12 by mbouhia           #+#    #+#             */
-/*   Updated: 2025/01/05 18:47:14 by mbouhia          ###   ########.fr       */
+/*   Updated: 2025/01/05 19:39:54 by mbouhia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	free_stack(t_stack *stack)
 		free(stack->points);
 	free(stack);
 }
+
 t_stack	*create_stack(int capacity)
 {
 	t_stack	*stack;
@@ -30,6 +31,7 @@ t_stack	*create_stack(int capacity)
 	stack->capacity = capacity;
 	return (stack);
 }
+
 void	push(t_stack *stack, t_point point)
 {
 	if (stack->top < stack->capacity - 1)
