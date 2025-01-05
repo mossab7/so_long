@@ -27,39 +27,6 @@ int	update_sprite_animation_frame(t_game *game, t_vars *to_draw, int frames)
 	return (0);
 }
 
-void	draw_collectable(t_game *game, int x, int y)
-{
-	game->collectable.x_pos = x;
-	game->collectable.y_pos = y;
-	draw_sprite_to_canvas(game, game->collectable);
-}
-
-void	redraw_collectable(t_game *game)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	if (game->map.map[game->player.y_end_pos / SCALE][game->player.x_end_pos
-		/ SCALE] == 'C')
-	{
-		game->collectable_counter--;
-		game->map.map[game->player.y_end_pos / SCALE][game->player.x_end_pos
-			/ SCALE] = '0';
-	}
-	while (i < game->map.height)
-	{
-		j = 0;
-		while (j < game->map.width)
-		{
-			if (game->map.map[i][j] == 'C')
-				draw_collectable(game, j * SCALE, i * SCALE);
-			j++;
-		}
-		i++;
-	}
-}
-
 void	render_character_movement(t_game *game, t_vars *to_draw, int in_action)
 {
 	if (in_action == 1)
@@ -77,7 +44,6 @@ void	render_character_movement(t_game *game, t_vars *to_draw, int in_action)
 		to_draw->y_pos = to_draw->y_start_pos;
 	}
 }
-
 void	update_all_characters_positions(t_game *game)
 {
 	int	i;
