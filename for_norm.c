@@ -6,7 +6,7 @@
 /*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:47:26 by mbouhia           #+#    #+#             */
-/*   Updated: 2025/01/05 19:40:56 by mbouhia          ###   ########.fr       */
+/*   Updated: 2025/01/05 20:36:48 by mbouhia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,26 @@ int	check_if_visited(t_game *game, char **visited)
 		}
 		i++;
 	}
+	return (0);
+}
+
+int	check_duplicate(t_game *game, int i, int j)
+{
+	static int	exit_counter;
+	static int	player_counter;
+	static int	enemies_counter;
+
+	if (game->map.map[i][j] == 'P')
+		player_counter++;
+	else if (game->map.map[i][j] == 'E')
+		exit_counter++;
+	else if (game->map.map[i][j] == 'X')
+		enemies_counter++;
+	if (exit_counter > 1)
+		return (-1);
+	else if (player_counter > 1)
+		return (-1);
+	else if (enemies_counter > 6)
+		return (-1);
 	return (0);
 }

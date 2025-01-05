@@ -6,7 +6,7 @@
 /*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:55:12 by mbouhia           #+#    #+#             */
-/*   Updated: 2025/01/05 19:44:23 by mbouhia          ###   ########.fr       */
+/*   Updated: 2025/01/05 20:36:14 by mbouhia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int	check_components(t_game *game)
 		j = 0;
 		while (j < game->map.width)
 		{
-			if (!ft_strchr("10CXEP\n", game->map.map[i][j]))
+			if (!ft_strchr("10CXEP\n", game->map.map[i][j])
+				|| check_duplicate(game, i, j) == -1)
 				return (-1);
 			j++;
 		}
