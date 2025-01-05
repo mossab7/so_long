@@ -28,7 +28,7 @@ $(SO_LONG) : $(MSRCS)
 	$(CC) $(CFLAGS) $(MSRCS) -o $(SO_LONG) -L$(LIBFT_DIR) -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 $(SO_LONG_BONUS) : $(BSRCS)
-	$(CC) $(CFLAGS) $(BSRCS) -o $(SO_LONG) -L$(LIBFT_DIR) -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+	$(CC) $(CFLAGS) $(BSRCS) -o $(SO_LONG_BONUS) -L$(LIBFT_DIR) -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 clean:
 	make -C $(LIBFT_DIR) clean

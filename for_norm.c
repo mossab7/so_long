@@ -63,23 +63,29 @@ int	check_if_visited(t_game *game, char **visited)
 	return (0);
 }
 
-int	check_duplicate(t_game *game, int i, int j)
+int	check_duplicate(t_game *game)
 {
-	static int	exit_counter;
-	static int	player_counter;
-	static int	enemies_counter;
-
-	if (game->map.map[i][j] == 'P')
-		player_counter++;
-	else if (game->map.map[i][j] == 'E')
-		exit_counter++;
-	else if (game->map.map[i][j] == 'X')
-		enemies_counter++;
-	if (exit_counter > 1)
-		return (-1);
-	else if (player_counter > 1)
-		return (-1);
-	else if (enemies_counter > 6)
+	int (exit_counter), (player_counter), (enemies_counter), (i), (j);
+	i = 0;
+	exit_counter = 0;
+	player_counter = 0;
+	enemies_counter = 0;
+	while (i < game->map.height)
+	{
+		j = 0;
+		while (j < game->map.width)
+		{
+			if (game->map.map[i][j] == 'P')
+				player_counter++;
+			else if (game->map.map[i][j] == 'E')
+				exit_counter++;
+			else if (game->map.map[i][j] == 'X')
+				enemies_counter++;
+			j++;
+		}
+		i++;
+	}
+	if (exit_counter != 1 || player_counter != 1 || enemies_counter > 6)
 		return (-1);
 	return (0);
 }

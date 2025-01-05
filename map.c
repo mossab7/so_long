@@ -70,14 +70,15 @@ int	check_components(t_game *game)
 	int	i;
 	int	j;
 
+	if (check_duplicate(game) == -1)
+		return (-1);
 	i = 0;
 	while (i < game->map.height)
 	{
 		j = 0;
 		while (j < game->map.width)
 		{
-			if (!ft_strchr("10CXEP\n", game->map.map[i][j])
-				|| check_duplicate(game, i, j) == -1)
+			if (!ft_strchr("10CXEP\n", game->map.map[i][j]))
 				return (-1);
 			j++;
 		}

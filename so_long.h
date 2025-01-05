@@ -238,5 +238,5 @@ void			get_player_and_exit_pos(t_game *game);
 int				check_if_visited(t_game *game, char **visited);
 void			redraw_collectable(t_game *game);
 void			draw_collectable(t_game *game, int x, int y);
-int				check_duplicate(t_game *game, int i, int j);
+int				check_duplicate(t_game *game);
 #endif
