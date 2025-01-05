@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   BFS.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/05 18:47:04 by mbouhia           #+#    #+#             */
+/*   Updated: 2025/01/05 18:47:05 by mbouhia          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 int	init_search(char ***visited, t_stack **stack, t_point size)
@@ -49,11 +61,11 @@ void	set_moves(t_point moves[4])
 
 char	**search_for_path(char **tab, t_point size, t_point begin)
 {
-	char **visited;
-	t_stack *stack;
-	int i;
-	t_point cur;
-	t_point moves[4];
+	char	**visited;
+	t_stack	*stack;
+	int		i;
+	t_point	cur;
+	t_point	moves[4];
 
 	if (!init_search(&visited, &stack, size))
 		return (NULL);
