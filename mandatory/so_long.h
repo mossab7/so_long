@@ -6,15 +6,15 @@
 /*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 21:24:38 by mbouhia           #+#    #+#             */
-/*   Updated: 2025/01/05 20:35:13 by mbouhia          ###   ########.fr       */
+/*   Updated: 2025/01/06 15:14:45 by mbouhia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "includes/libft/libft.h"
-# include "includes/minilibx-linux/mlx.h"
+# include "../includes/libft/libft.h"
+# include "../includes/minilibx-linux/mlx.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>

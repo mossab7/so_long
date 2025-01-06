@@ -86,9 +86,9 @@ int	render_game_frame(t_game *game)
 		update_game_state(game);
 	render_next_game_frame(game);
 	handle_death(game);
-	mlx_string_put(game->mlx, game->win, ((game->map.width * SCALE) / 2),
-		((game->map.height + 1) * SCALE), 0x00FFFFFF,
-		ft_itoa(game->move_counter));
+	// mlx_string_put(game->mlx, game->win, ((game->map.width * SCALE) / 2),
+	// 	((game->map.height + 1) * SCALE), 0x00FFFFFF,
+	// 	ft_itoa(game->move_counter));
 	mlx_put_image_to_window(game->mlx, game->win, game->canvas.image, 0, 0);
 	return (0);
 }
