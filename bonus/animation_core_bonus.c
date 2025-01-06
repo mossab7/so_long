@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	update_sprite_animation_frame(t_game *game, t_vars *to_draw, int frames)
 {

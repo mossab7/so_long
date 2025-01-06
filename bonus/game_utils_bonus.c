@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	render_map_tile(int i_pos, int j_pos, t_vars *tile, t_game *game)
 {

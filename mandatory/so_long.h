@@ -132,7 +132,7 @@ typedef struct s_game
 	int			death_animation_tick;
 	int			collectable_counter;
 	int			move_counter;
-
+	t_vars		counter;
 }				t_game;
 
 void			free_map_resources(char **map, int size);
@@ -239,4 +239,6 @@ int				check_if_visited(t_game *game, char **visited);
 void			redraw_collectable(t_game *game);
 void			draw_collectable(t_game *game, int x, int y);
 int				check_duplicate(t_game *game);
+void			update_move_counter(t_game *game);
+int				init_counter_image(t_game *game);
 #endif

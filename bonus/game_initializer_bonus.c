@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	init_mlx_and_window(t_game *game)
 {
@@ -31,7 +31,7 @@ int	init_mlx_and_window(t_game *game)
 int	init_canvas(t_game *game)
 {
 	game->canvas.image = mlx_new_image(game->mlx, game->map.width * SCALE,
-			(game->map.height + 2) * SCALE);
+			game->map.height * SCALE);
 	if (!game->canvas.image)
 	{
 		mlx_destroy_window(game->mlx, game->win);
@@ -77,6 +77,8 @@ int	initialize_game_window(t_game *game)
 	if (load_images(game) == -1)
 		return (-1);
 	if (render_game_map(game) == -1)
+		return (-1);
+	if (init_counter_image(game) == -1)
 		return (-1);
 	setup_game_hooks(game);
 	mlx_loop(game->mlx);

@@ -77,10 +77,7 @@ void	calculate_next_position(t_game *game)
 			game->player.x_end_pos = game->player.x_pos + SCALE;
 		if (game->in_action == 1)
 		{
-			game->move_counter++;
-			mlx_string_put(game->mlx, game->win, ((game->map.width * SCALE) / 2),
-			((game->map.height + 1) * SCALE), 0x00FFFFFF,
-			ft_itoa(game->move_counter));
+			update_move_counter(game);
 		}
 	}
 }

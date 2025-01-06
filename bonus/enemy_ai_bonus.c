@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 float	evaluate_move(t_game *game, int enemy_idx, int new_x, int new_y)
 {
