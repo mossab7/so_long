@@ -27,6 +27,8 @@
 # define DEATH_FRAMES 9
 # define DEATH_ANIMATION_SPEED 5
 
+#define GOOGLE_MAP "maps/google.ber"
+
 typedef struct s_move
 {
 	int			dx;

@@ -22,14 +22,14 @@ t_game	*get_game_instance(void)
 int	main(int ac, char **av)
 {
 	t_game	*game;
+	char	*map_path;
 
 	game = get_game_instance();
 	if (ac != 2)
-	{
-		ft_putendl_fd("Error: wrong format <./so_long mapXX.ber>", 2);
-		return (1);
-	}
-	if (read_map(av[1], game) == -1)
+		map_path = ft_strdup(GOOGLE_MAP);
+	else
+		map_path = av[1];
+	if (read_map(map_path, game) == -1)
 	{
 		ft_putendl_fd("Error: Failed to read map", 2);
 		return (1);
