@@ -16,7 +16,7 @@ BSRCS = bonus/so_long_bonus.c bonus/map_bonus.c bonus/game_initializer_bonus.c\
 
 LIBFT = libft.a
 LIBFT_DIR = utils/libft
-MLX_DIR = utils/mlx
+MLX_DIR = utils/minilibx-linux
 SO_LONG = so_long
 SO_LONG_BONUS = so_long_bonus
 
