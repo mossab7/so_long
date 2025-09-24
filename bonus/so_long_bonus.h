@@ -13,8 +13,8 @@
 #ifndef SO_LONG_BONUS_H
 # define SO_LONG_BONUS_H
 
-# include "../includes/libft/libft.h"
-# include "../includes/minilibx-linux/mlx.h"
+# include <libft.h>
+# include <mlx.h>
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>

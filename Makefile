@@ -13,10 +13,14 @@ BSRCS = bonus/so_long_bonus.c bonus/map_bonus.c bonus/game_initializer_bonus.c\
    	bonus/load_images_utils_bonus.c bonus/enemy_ai_bonus.c bonus/game_state_bonus.c bonus/move_counter_bonus.c\
     bonus/death_handler_bonus.c bonus/BFS_utiles_bonus.c bonus/BFS_bonus.c bonus/map_utils_bonus.c
 
+
 LIBFT = libft.a
-LIBFT_DIR = includes/libft
+LIBFT_DIR = utils/libft
+MLX_DIR = utils/mlx
 SO_LONG = so_long
 SO_LONG_BONUS = so_long_bonus
+
+INCLUDES = -I$(LIBFT_DIR) -I$(MLX_DIR)
 
 all: $(LIBFT) $(SO_LONG)
 
@@ -26,10 +30,10 @@ $(LIBFT):
 bonus :$(LIBFT) $(SO_LONG_BONUS)
 
 $(SO_LONG) : $(MSRCS)
-	$(CC) $(CFLAGS) $(MSRCS) -o $(SO_LONG) -L$(LIBFT_DIR) -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+	$(CC) $(CFLAGS) $(MSRCS) -o $(SO_LONG) -L$(LIBFT_DIR) $(INCLUDES) -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 $(SO_LONG_BONUS) : $(BSRCS)
-	$(CC) $(CFLAGS) $(BSRCS) -o $(SO_LONG_BONUS) -L$(LIBFT_DIR) -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+	$(CC) $(CFLAGS) $(BSRCS) -o $(SO_LONG_BONUS) -L$(LIBFT_DIR) $(INCLUDES) -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 clean:
 	make -C $(LIBFT_DIR) clean
