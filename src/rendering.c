@@ -1,0 +1,124 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rendering.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbouhia <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/04 15:55:12 by mbouhia           #+#    #+#             */
+/*   Updated: 2025/01/05 21:18:35 by mbouhia          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+long	get_current_time_ms(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
+
+int	should_update_animation(t_game *game)
+{
+	long	current_time;
+
+	current_time = get_current_time_ms();
+	if (current_time - game->last_animation_time >= ANIMATION_INTERVAL_MS)
+	{
+		game->last_animation_time = current_time;
+		return (1);
+	}
+	return (0);
+}
+
+int	should_update_game_state(t_game *game)
+{
+	long	current_time;
+
+	current_time = get_current_time_ms();
+	if (current_time - game->last_game_update_time >= GAME_UPDATE_INTERVAL_MS)
+	{
+		game->last_game_update_time = current_time;
+		return (1);
+	}
+	return (0);
+}
+
+int	should_redraw_collectables(t_game *game)
+{
+	long	current_time;
+
+	current_time = get_current_time_ms();
+	if (current_time - game->last_collectable_redraw_time >= COLLECTABLE_REDRAW_INTERVAL_MS)
+	{
+		game->last_collectable_redraw_time = current_time;
+		return (1);
+	}
+	return (0);
+}
+
+int	render_next_game_frame(t_game *game)
+{
+	if (should_update_animation(game))
+	{
+		animate_player_sprite(game);
+		animate_enemy_sprite(game);
+	}
+	update_all_characters_positions(game);
+	return (0);
+}
+
+void	draw_floor(t_game *game, int x, int y)
+{
+	game->floor.x_pos = x;
+	game->floor.y_pos = y;
+	draw_sprite_to_canvas(game, game->floor);
+}
+
+int	draw_sprite_to_canvas(t_game *game, t_vars to_draw)
+{
+	t_coordinate	coord;
+
+	coord.y = 0;
+	while (coord.y < SCALE)
+	{
+		coord.x = 0;
+		while (coord.x < SCALE)
+		{
+			draw_pixel(game, &to_draw, coord, to_draw.frame_x + coord.x);
+			coord.x++;
+		}
+		to_draw.frame_y++;
+		coord.y++;
+	}
+	return (0);
+}
+
+void	draw_pixel(t_game *game, t_vars *to_draw, t_coordinate coord, int src_x)
+{
+	char	*src;
+	char	*dst;
+
+	src = to_draw->image_addr + (to_draw->frame_y * to_draw->line_size + src_x
+			* (to_draw->bpp / 8));
+	if (*(unsigned int *)src != 0xFF000000)
+	{
+		dst = game->canvas.image_addr + ((to_draw->y_pos + coord.y)
+				* game->canvas.line_size + (to_draw->x_pos + coord.x)
+				* (game->canvas.bpp / 8));
+		*(unsigned int *)dst = *(unsigned int *)src;
+	}
+}
+
+int	render_game_frame(t_game *game)
+{
+	game->frame_counter++;
+	if (should_update_game_state(game))
+		update_game_state(game);
+	render_next_game_frame(game);
+	handle_death(game);
+	mlx_put_image_to_window(game->mlx, game->win, game->canvas.image, 0, 0);
+	return (0);
+}
