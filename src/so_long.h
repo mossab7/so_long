@@ -29,9 +29,8 @@
 # define DEATH_FRAMES 9
 # define DEATH_ANIMATION_SPEED 5
 
-# define ANIMATION_INTERVAL_MS 100    /* Animation update interval in milliseconds */
-# define GAME_UPDATE_INTERVAL_MS 10   /* Game state update interval (~15 FPS) */
-# define COLLECTABLE_REDRAW_INTERVAL_MS 3330  /* Collectable redraw interval (~3.33 seconds) */
+# define ANIMATION_INTERVAL_MS 100    
+# define GAME_UPDATE_INTERVAL_MS 5 
 
 #define GOOGLE_MAP "maps/google.ber"
 
@@ -143,7 +142,6 @@ typedef struct s_game
 	t_vars		counter;
 	long		last_animation_time;
 	long		last_game_update_time;
-	long		last_collectable_redraw_time;
 }				t_game;
 
 void			free_map_resources(char **map, int size);
@@ -249,11 +247,12 @@ void			get_player_and_exit_pos(t_game *game);
 int				check_if_visited(t_game *game, char **visited);
 void			redraw_collectable(t_game *game);
 void			draw_collectable(t_game *game, int x, int y);
+void			collect_item_at_position(t_game *game);
+void			redraw_all_collectables(t_game *game);
 int				check_duplicate(t_game *game);
 void			update_move_counter(t_game *game);
 int				init_counter_image(t_game *game);
 long			get_current_time_ms(void);
 int				should_update_animation(t_game *game);
 int				should_update_game_state(t_game *game);
-int				should_redraw_collectables(t_game *game);
 #endif

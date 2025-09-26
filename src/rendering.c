@@ -46,19 +46,6 @@ int	should_update_game_state(t_game *game)
 	return (0);
 }
 
-int	should_redraw_collectables(t_game *game)
-{
-	long	current_time;
-
-	current_time = get_current_time_ms();
-	if (current_time - game->last_collectable_redraw_time >= COLLECTABLE_REDRAW_INTERVAL_MS)
-	{
-		game->last_collectable_redraw_time = current_time;
-		return (1);
-	}
-	return (0);
-}
-
 int	render_next_game_frame(t_game *game)
 {
 	if (should_update_animation(game))

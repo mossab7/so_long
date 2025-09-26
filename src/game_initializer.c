@@ -25,10 +25,8 @@ int	init_mlx_and_window(t_game *game)
 		free(game->mlx);
 		return (-1);
 	}
-	/* Initialize timing variables for time-based frame rate control */
 	game->last_animation_time = get_current_time_ms();
 	game->last_game_update_time = get_current_time_ms();
-	game->last_collectable_redraw_time = get_current_time_ms();
 	return (0);
 }
 

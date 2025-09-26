@@ -35,8 +35,9 @@ void	render_character_movement(t_game *game, t_vars *to_draw, int in_action)
 		to_draw->x_start_pos = to_draw->x_pos;
 		to_draw->y_start_pos = to_draw->y_pos;
 		draw_sprite_to_canvas(game, *to_draw);
-		if (should_redraw_collectables(game))
-			redraw_collectable(game);
+		/* Only check for collection when player is moving, not on a timer */
+		if (to_draw == &game->player)
+			collect_item_at_position(game);
 	}
 	else
 	{
