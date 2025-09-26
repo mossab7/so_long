@@ -27,16 +27,46 @@ int	update_sprite_animation_frame(t_game *game, t_vars *to_draw, int frames)
 	return (0);
 }
 
-void	render_character_movement(t_game *game, t_vars *to_draw, int in_action)
+void	check_enemy_collectable_collision(t_game *game, t_vars *enemy)
+{
+	int	old_map_x;
+	int	old_map_y;
+	int	current_map_x;
+	int	current_map_y;
+
+	old_map_x = enemy->x_start_pos / SCALE;
+	old_map_y = enemy->y_start_pos / SCALE;
+	current_map_x = enemy->x_pos / SCALE;
+	current_map_y = enemy->y_pos / SCALE;
+
+	if (game->map.map[old_map_y][old_map_x] == 'C')
+	{
+		draw_collectable(game, old_map_x * SCALE, old_map_y * SCALE);
+	}
+	if (game->map.map[current_map_y][current_map_x] == 'C')
+	{
+		draw_collectable(game, current_map_x * SCALE, current_map_y * SCALE);
+	}
+}
+
+void	render_character_movement(t_game *game, t_vars *to_draw, int in_action, int is_player)
 {
 	if (in_action == 1)
 	{
 		draw_floor(game, to_draw->x_start_pos, to_draw->y_start_pos);
+		if (!is_player)
+			check_enemy_collectable_collision(game, to_draw);
 		to_draw->x_start_pos = to_draw->x_pos;
 		to_draw->y_start_pos = to_draw->y_pos;
 		draw_sprite_to_canvas(game, *to_draw);
-		/* Only check for collection when player is moving, not on a timer */
-		if (to_draw == &game->player)
+		if (!is_player)
+		{
+			int curr_x = to_draw->x_pos / SCALE;
+			int curr_y = to_draw->y_pos / SCALE;
+			if (game->map.map[curr_y][curr_x] == 'C')
+				draw_collectable(game, curr_x * SCALE, curr_y * SCALE);
+		}
+		if (is_player)
 			collect_item_at_position(game);
 	}
 	else
@@ -50,11 +80,11 @@ void	update_all_characters_positions(t_game *game)
 {
 	int	i;
 
-	render_character_movement(game, &game->player, game->in_action);
+	render_character_movement(game, &game->player, game->in_action, 1);
 	i = 0;
 	while (i < game->enemies_counter)
 		render_character_movement(game, &game->enemy[i++],
-			game->start_game_flag);
+			game->start_game_flag, 0);
 }
 
 void	animate_player_sprite(t_game *game)
