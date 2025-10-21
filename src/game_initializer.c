@@ -80,8 +80,6 @@ int	initialize_game_window(t_game *game)
 		return (-1);
 	if (render_game_map(game) == -1)
 		return (-1);
-	if (init_counter_image(game) == -1)
-		return (-1);
 	setup_game_hooks(game);
 	mlx_loop(game->mlx);
 	return (0);

@@ -101,7 +101,6 @@ void	draw_pixel(t_game *game, t_vars *to_draw, t_coordinate coord, int src_x)
 
 int	render_game_frame(t_game *game)
 {
-	game->frame_counter++;
 	if (should_update_game_state(game))
 		update_game_state(game);
 	render_next_game_frame(game);

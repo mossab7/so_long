@@ -4,7 +4,7 @@ CFLAGS = -Wall -Werror -Wextra
 SRC = src/so_long.c src/map.c src/game_initializer.c src/game_utils.c \
 	src/game_animations.c src/game_movements.c src/rendering.c src/for_norm.c \
 	src/animation_core_utils.c src/animation_core.c src/enemy_movement.c \
-	src/collision_handling.c src/load_images_utils.c src/move_counter.c \
+	src/collision_handling.c src/load_images_utils.c \
 	src/enemy_ai.c src/game_state.c src/death_handler.c src/BFS_utiles.c \
 	src/BFS.c src/map_utils.c
 

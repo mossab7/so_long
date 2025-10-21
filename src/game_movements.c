@@ -75,10 +75,6 @@ void	calculate_next_position(t_game *game)
 			&& game->map.map[game->player.y_pos / SCALE][(game->player.x_pos
 				+ SCALE) / SCALE] != '1')
 			game->player.x_end_pos = game->player.x_pos + SCALE;
-		if (game->in_action == 1)
-		{
-			update_move_counter(game);
-		}
 	}
 }
 

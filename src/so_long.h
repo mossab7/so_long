@@ -129,7 +129,6 @@ typedef struct s_game
 	t_vars		portal;
 	t_vars		collectable;
 	t_canvas	canvas;
-	int			frame_counter;
 	int			frame_flag;
 	int			start_game_flag;
 	int			in_action;
@@ -138,8 +137,6 @@ typedef struct s_game
 	int			death_frame_counter;
 	int			death_animation_tick;
 	int			collectable_counter;
-	int			move_counter;
-	t_vars		counter;
 	long		last_animation_time;
 	long		last_game_update_time;
 }				t_game;
@@ -250,7 +247,6 @@ void			draw_collectable(t_game *game, int x, int y);
 void			collect_item_at_position(t_game *game);
 void			redraw_all_collectables(t_game *game);
 int				check_duplicate(t_game *game);
-void			update_move_counter(t_game *game);
 int				init_counter_image(t_game *game);
 long			get_current_time_ms(void);
 int				should_update_animation(t_game *game);
