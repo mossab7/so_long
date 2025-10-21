@@ -82,7 +82,7 @@ float	get_aggression_factor(t_game *game, int enemy_idx)
 			game->enemy[enemy_idx].y_pos, game->player.x_pos,
 			game->player.y_pos);
 	if (dist < SCALE * 5)
-		return (0.9f);
+		return (BEST_MOVE_FOR_CLOSE_ENEMY);
 	else
-		return (0.7f);
+		return (BEST_MOVE_CHANCE_FOR_FAR_ENEMY);
 }

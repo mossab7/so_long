@@ -32,6 +32,9 @@
 # define ANIMATION_INTERVAL_MS 100    
 # define GAME_UPDATE_INTERVAL_MS 3
 
+#define BEST_MOVE_FOR_CLOSE_ENEMY 0.9f
+#define BEST_MOVE_CHANCE_FOR_FAR_ENEMY 0.7f
+
 #define GOOGLE_MAP "maps/google.ber"
 
 typedef struct s_move
