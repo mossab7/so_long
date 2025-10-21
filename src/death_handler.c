@@ -46,7 +46,6 @@ void	handle_death(t_game *game)
 	{
 		game->death_animation_tick = 0;
 		handle_death_frame(game);
-		printf("Death frame: %d\n", game->death_frame_counter);
 		if (game->death_frame_counter >= DEATH_FRAMES)
 			cleanup_and_exit(game);
 	}

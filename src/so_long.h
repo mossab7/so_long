@@ -30,7 +30,7 @@
 # define DEATH_ANIMATION_SPEED 5
 
 # define ANIMATION_INTERVAL_MS 100    
-# define GAME_UPDATE_INTERVAL_MS 5 
+# define GAME_UPDATE_INTERVAL_MS 3
 
 #define GOOGLE_MAP "maps/google.ber"
 

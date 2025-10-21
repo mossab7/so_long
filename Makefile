@@ -25,6 +25,9 @@ MLX_INCLUDES = -Imlx_linux
 
 all: $(LIBFT) $(SO_LONG)
 
+run : $(SO_LONG)
+	./$(SO_LONG)
+
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
