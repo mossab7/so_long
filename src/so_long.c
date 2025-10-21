@@ -22,7 +22,7 @@ t_game	*get_game_instance(void)
 int	main(int ac, char **av)
 {
 	t_game	*game;
-	char	*map_path = NULL;
+	char	*map_path;
 
 	game = get_game_instance();
 	if (ac != 2)
